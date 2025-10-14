@@ -9,7 +9,7 @@ from datetime import date
 
 
 # noinspection PyBroadException
-class LoginPage:
+class ContraVoucherPage:
     def __init__(self):
         self.driver = webdriver.Chrome()
         self.driver.maximize_window()
@@ -22,7 +22,9 @@ class LoginPage:
 
     def enter_username(self, username):
         username_field = self.wait.until(
-            EC.presence_of_element_located((By.XPATH, "/html/body/app/div/ng-component/div/form/div/div[2]/input"))
+            EC.presence_of_element_located(
+                (By.XPATH, "/html/body/app/div/ng-component/div/form/div/div[2]/input")
+            )
         )
         username_field.clear()
         username_field.send_keys(username)
@@ -76,159 +78,61 @@ class LoginPage:
         except Exception as e:
             print("❌ Could not click Accounting Module:", e)
 
-    # --- Journal Voucher ---
-    def open_journal_voucher(self):
+    # --- Contra Voucher ---
+    def open_contra_voucher(self):
         try:
-            # Step 1: Click Transactions
+            # --- Step 1: Click Transactions ---
             transaction_btn = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//span[contains(.,'Transactions')]"))
             )
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", transaction_btn)
             self.driver.execute_script("arguments[0].click();", transaction_btn)
             print("✅ Clicked 'Transactions'")
             time.sleep(2)
 
-            # Step 2: Hover over Voucher Entries
+            # --- Step 2: Hover over Voucher Entries ---
             try:
-                voucher_entries = self.wait.until(EC.element_to_be_clickable((By.LINK_TEXT, "Voucher Entries")))
+                voucher_entries = self.wait.until(
+                    EC.element_to_be_clickable((By.LINK_TEXT, "Voucher Entries"))
+                )
             except:
                 try:
-                    voucher_entries = self.wait.until(EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, "Voucher Entries")))
+                    voucher_entries = self.wait.until(
+                        EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, "Voucher Entries"))
+                    )
                 except:
-                    voucher_entries = self.wait.until(EC.visibility_of_element_located(
-                        (By.XPATH, "//span[normalize-space()='Voucher Entries']")
-                    ))
+                    voucher_entries = self.wait.until(
+                        EC.visibility_of_element_located((By.XPATH, "//span[normalize-space()='Voucher Entries']"))
+                    )
 
             self.driver.execute_script("arguments[0].scrollIntoView(true);", voucher_entries)
-            self.actions.move_to_element(voucher_entries).pause(0.3).perform()
+            self.actions.move_to_element(voucher_entries).pause(0.5).perform()
             print("✅ Hovered over 'Voucher Entries'")
             time.sleep(1)
 
-            # Step 3: Click Journal Voucher
-            journal_voucher = self.wait.until(EC.element_to_be_clickable((By.LINK_TEXT, "Journal Voucher")))
-            self.driver.execute_script("arguments[0].scrollIntoView(true);", journal_voucher)
-            journal_voucher.click()
-            print("✅ Clicked on 'Journal Voucher'")
-            time.sleep(3)
-
-            # Step 4: Enter Ref Number & Remarks
-            ref_number_field = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='refno']")))
-            ref_number_field.clear()
-            ref_number_field.send_keys("REF12345")
-            print("✅ Entered Ref Number")
-            time.sleep(1)
-
-            remarks_field = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@name='REMARKS']")))
-            remarks_field.click()
-            remarks_field.send_keys("This is a test remark.")
-            print("✅ Entered Remarks")
-            time.sleep(1)
-
-            # Step 5: Ledger Account 1
-            ledger_input = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@id='ACCODEInput_0']")))
-            self.driver.execute_script("arguments[0].click();", ledger_input)
-            ledger_input.send_keys(Keys.ENTER)
-            ledger_ac_to_select = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@title='vendormastest']")))
-            self.actions.move_to_element(ledger_ac_to_select).double_click(ledger_ac_to_select).perform()
-            print("✅ Selected Ledger Account 1")
-            time.sleep(1)
-
-            # Debit Amount
-            debit_field = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='DrAmtInput_0']")))
-            debit_field.clear()
-            debit_field.send_keys("1000\n")
-            print("✅ Entered Debit Amount")
-            time.sleep(1)
-
-            # Narration 1
-            narration_field = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='narration_0']")))
-            narration_field.send_keys("Test Narration\n")
-            print("✅ Entered Narration 1")
-            time.sleep(1)
-
-            # Ledger Account 2
-            ledger_input2 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@id='ACCODEInput_1']")))
-            self.driver.execute_script("arguments[0].click();", ledger_input2)
-            ledger_input2.send_keys(Keys.ENTER)
-            ledger_ac_to_select2 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@title='TheTestCustom']")))
-            self.actions.move_to_element(ledger_ac_to_select2).double_click(ledger_ac_to_select2).perform()
-            print("✅ Selected Ledger Account 2")
-            time.sleep(1)
-
-            # Credit Amount
-            credit_field = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='CrAmtInput_1']")))
-            credit_field.clear()
-            credit_field.send_keys("1000\n")
-            print("✅ Entered Credit Amount")
-            time.sleep(1)
-
-            # Narration 2
-            narration_field2 = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='narration_1']")))
-            narration_field2.send_keys("Test Narration\n")
-            print("✅ Entered Narration 2")
-
-            # Step 6: Save & Confirm
-            save_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='F6 SAVE']")))
-            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", save_button)
-            self.driver.execute_script("arguments[0].click();", save_button)
-            print("✅ Clicked Save button")
-            time.sleep(1)
-
-            yes_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Yes']")))
-            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", yes_button)
-            self.driver.execute_script("arguments[0].click();", yes_button)
-            print("✅ Clicked Yes on confirmation modal")
-            time.sleep(1)
-
-            cancel_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Cancel']")))
-            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", cancel_button)
-            self.driver.execute_script("arguments[0].click();", cancel_button)
-            print("✅ Clicked Cancel on confirmation modal")
-
-        except Exception as e:
-            print("❌ Error in Journal Voucher:", e)
-
-    # --- Contra Voucher ---
-    def open_contra_voucher(self):
-        try:
-            # Hover over Voucher Entries
-            try:
-                voucher_entries = self.wait.until(EC.element_to_be_clickable((By.LINK_TEXT, "Voucher Entries")))
-            except:
-                try:
-                    voucher_entries = self.wait.until(EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, "Voucher Entries")))
-                except:
-                    voucher_entries = self.wait.until(EC.visibility_of_element_located(
-                        (By.XPATH, "//span[normalize-space()='Voucher Entries']")
-                    ))
-
-            self.driver.execute_script("arguments[0].scrollIntoView(true);", voucher_entries)
-            self.actions.move_to_element(voucher_entries).pause(0.3).perform()
-            print("✅ Hovered over 'Voucher Entries'")
-            time.sleep(1)
-
-            # Click Contra Voucher
-            contra_voucher = self.wait.until(EC.element_to_be_clickable((By.LINK_TEXT, "Contra Voucher")))
+            # --- Step 3: Click Contra Voucher ---
+            contra_voucher = self.wait.until(
+                EC.element_to_be_clickable((By.LINK_TEXT, "Contra Voucher"))
+            )
             self.driver.execute_script("arguments[0].scrollIntoView(true);", contra_voucher)
-            contra_voucher.click()
+            self.driver.execute_script("arguments[0].click();", contra_voucher)
             print("✅ Clicked on 'Contra Voucher'")
             time.sleep(3)
 
-            # Fill Contra Voucher fields
-            # Ref Number
+            # Step 4: Enter Ref Number & Remarks
             ref_number_field = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='refno']")))
             ref_number_field.clear()
             ref_number_field.send_keys("REF-9900")
             print("✅ Entered Ref Number")
             time.sleep(1)
 
-            # Remarks
             remarks_field = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@name='REMARKS']")))
             remarks_field.click()
             remarks_field.send_keys("This is a test.")
             print("✅ Entered Remarks")
             time.sleep(1)
 
-            # Ledger 1
+            # Step 5: Ledger Account 1
             ledger_input1 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@id='ACCODEInput_0']")))
             self.driver.execute_script("arguments[0].click();", ledger_input1)
             ledger_input1.send_keys(Keys.ENTER)
@@ -255,7 +159,7 @@ class LoginPage:
             Select(trn_mode1).select_by_visible_text("Cheque")
             print("✅ Selected TRN Mode: Cheque")
 
-            # Cheque Number & Date
+            # Cheque Number & Date 1
             cheque1 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@id='ChequeNo_0']")))
             cheque1.click()
             cheque1.send_keys("CHQ-" + str(int(time.time()) % 10000))
@@ -275,7 +179,7 @@ class LoginPage:
             except Exception:
                 pass
 
-            # Ledger 2
+            # Step 6: Ledger Account 2
             ledger_input2 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@id='ACCODEInput_1']")))
             self.driver.execute_script("arguments[0].click();", ledger_input2)
             ledger_input2.send_keys(Keys.ENTER)
@@ -321,7 +225,7 @@ class LoginPage:
             except Exception:
                 pass
 
-            # Save & Confirm Contra Voucher
+            # Step 7: Save & Confirm Contra Voucher
             save_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='F6 SAVE']")))
             self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", save_button)
             self.driver.execute_script("arguments[0].click();", save_button)
@@ -337,7 +241,7 @@ class LoginPage:
             cancel_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Cancel']")))
             self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", cancel_button)
             self.driver.execute_script("arguments[0].click();", cancel_button)
-            print("✅ Clicked Print on confirmation modal")
+            print("✅ Clicked Cancel on confirmation modal")
 
             # Keep browser open to observe
             time.sleep(500)

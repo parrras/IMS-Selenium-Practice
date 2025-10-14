@@ -1,8 +1,8 @@
 import time
-from login_page import LoginPage
+from contraVoucher import ContraVoucherPage
 
 def main():
-    login = LoginPage()
+    login = ContraVoucherPage()
     login.open()
     login.enter_username("Paras")
     login.enter_password("Ims@1234")
@@ -11,7 +11,6 @@ def main():
 
     login.handle_duplicate_logout()
     login.open_accounting_module()
-    login.open_journal_voucher()
     login.open_contra_voucher()
 
 if __name__ == "__main__":
