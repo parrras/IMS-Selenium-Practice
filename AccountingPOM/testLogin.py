@@ -1,5 +1,5 @@
-from login_page import LoginPage
 import time
+from login_page import LoginPage
 
 def main():
     login = LoginPage()
