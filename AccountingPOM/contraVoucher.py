@@ -88,7 +88,7 @@ class ContraVoucherPage:
             self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", transaction_btn)
             self.driver.execute_script("arguments[0].click();", transaction_btn)
             print("✅ Clicked 'Transactions'")
-            time.sleep(2)
+            time.sleep(5)
 
             # --- Step 2: Hover over Voucher Entries ---
             try:
@@ -108,7 +108,7 @@ class ContraVoucherPage:
             self.driver.execute_script("arguments[0].scrollIntoView(true);", voucher_entries)
             self.actions.move_to_element(voucher_entries).pause(0.5).perform()
             print("✅ Hovered over 'Voucher Entries'")
-            time.sleep(1)
+            time.sleep(5)
 
             # --- Step 3: Click Contra Voucher ---
             contra_voucher = self.wait.until(
@@ -117,20 +117,20 @@ class ContraVoucherPage:
             self.driver.execute_script("arguments[0].scrollIntoView(true);", contra_voucher)
             self.driver.execute_script("arguments[0].click();", contra_voucher)
             print("✅ Clicked on 'Contra Voucher'")
-            time.sleep(3)
+            time.sleep(5)
 
             # Step 4: Enter Ref Number & Remarks
             ref_number_field = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='refno']")))
             ref_number_field.clear()
             ref_number_field.send_keys("REF-9900")
             print("✅ Entered Ref Number")
-            time.sleep(1)
+            time.sleep(5)
 
             remarks_field = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@name='REMARKS']")))
             remarks_field.click()
             remarks_field.send_keys("This is a test.")
             print("✅ Entered Remarks")
-            time.sleep(1)
+            time.sleep(5)
 
             # Step 5: Ledger Account 1
             ledger_input1 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@id='ACCODEInput_0']")))
@@ -139,25 +139,26 @@ class ContraVoucherPage:
             ledger_ac1 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@title='PETTY CASH A/C']")))
             self.actions.move_to_element(ledger_ac1).double_click(ledger_ac1).perform()
             print("✅ Selected Ledger Account 1")
-            time.sleep(1)
+            time.sleep(5)
 
             # Debit Amount
             debit_field1 = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='DrAmtInput_0']")))
             debit_field1.clear()
             debit_field1.send_keys("1000\n")
             print("✅ Entered Debit Amount")
-            time.sleep(1)
+            time.sleep(5)
 
             # Narration 1
             narration_field1 = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='narration_0']")))
             narration_field1.send_keys("Test Narration\n")
             print("✅ Entered Narration 1")
-            time.sleep(1)
+            time.sleep(5)
 
             # TRN Mode 1
             trn_mode1 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//select[@id='transactionType_0']")))
             Select(trn_mode1).select_by_visible_text("Cheque")
             print("✅ Selected TRN Mode: Cheque")
+            time.sleep(5)
 
             # Cheque Number & Date 1
             cheque1 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@id='ChequeNo_0']")))
@@ -167,7 +168,7 @@ class ContraVoucherPage:
             today_date = date.today().strftime("%m%d%Y")
             self.actions.send_keys(today_date).perform()
             print(f"✅ Entered Cheque Number and Date: {today_date[:2]}/{today_date[2:4]}/{today_date[4:]}")
-            time.sleep(1)
+            time.sleep(5)
 
             # Handle Invalid Date Alert
             try:
@@ -186,25 +187,26 @@ class ContraVoucherPage:
             ledger_ac2 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@title='CASH IN HAND A/C']")))
             self.actions.move_to_element(ledger_ac2).double_click(ledger_ac2).perform()
             print("✅ Selected Ledger Account 2")
-            time.sleep(1)
+            time.sleep(5)
 
             # Credit Amount
             credit_field2 = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='CrAmtInput_1']")))
             credit_field2.clear()
             credit_field2.send_keys("1000\n")
             print("✅ Entered Credit Amount")
-            time.sleep(1)
+            time.sleep(5)
 
             # Narration 2
             narration_field2 = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='narration_1']")))
             narration_field2.send_keys("Test Narration\n")
             print("✅ Entered Narration 2")
-            time.sleep(1)
+            time.sleep(5)
 
             # TRN Mode 2
             trn_mode2 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//select[@id='transactionType_1']")))
             Select(trn_mode2).select_by_visible_text("Cheque")
             print("✅ Selected TRN Mode 2: Cheque")
+            time.sleep(5)
 
             # Cheque Number & Date 2
             cheque2 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@id='ChequeNo_1']")))
@@ -213,7 +215,7 @@ class ContraVoucherPage:
             cheque2.send_keys(Keys.TAB)
             self.actions.send_keys(today_date).perform()
             print(f"✅ Entered Cheque Number and Date 2: {today_date[:2]}/{today_date[2:4]}/{today_date[4:]}")
-            time.sleep(1)
+            time.sleep(5)
 
             # Handle Invalid Date Alert 2
             try:
@@ -230,13 +232,13 @@ class ContraVoucherPage:
             self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", save_button)
             self.driver.execute_script("arguments[0].click();", save_button)
             print("✅ Clicked Save button")
-            time.sleep(1)
+            time.sleep(5)
 
             yes_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Yes']")))
             self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", yes_button)
             self.driver.execute_script("arguments[0].click();", yes_button)
             print("✅ Clicked Yes on confirmation modal")
-            time.sleep(1)
+            time.sleep(5)
 
             cancel_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Cancel']")))
             self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", cancel_button)
