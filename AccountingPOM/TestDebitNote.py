@@ -1,5 +1,5 @@
 import time
-from DebitNote import DebitNotePage
+from AccountingPOM.DebitNote import DebitNotePage
 
 def main():
     login = DebitNotePage()
