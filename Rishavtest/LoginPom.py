@@ -5,13 +5,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 import time
 
-
-# noinspection PyBroadException
 class PomLogin:
-    def __init__(self, driver):
+    def __init__(self , driver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 30)
-        self.actions = ActionChains(self.driver)
+        self.actions = ActionChains(driver)
+
 
         # Locators
         self.username_field =(By.XPATH,"//input[@formcontrolname='username']")
@@ -47,24 +46,10 @@ class PomLogin:
         self.wait.until(EC.visibility_of_element_located(self.account_Transaction)).click()
 
     def opening_entry_click(self):
-        # --- Hover over Opening Entries ---
-        try:
-            opening_entries = self.wait.until(
-                EC.element_to_be_clickable((By.LINK_TEXT, "Opening Entries"))
-            )
-        except:
-            try:
-                opening_entries = self.wait.until(
-                    EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, "Opening Entries"))
-                )
-            except:
-                opening_entries = self.wait.until(
-                    EC.visibility_of_element_located((By.XPATH, "//span[normalize-space()='Opening Entries']"))
-                )
-
-        self.driver.execute_script("arguments[0].scrollIntoView(true);", opening_entries)
-        self.actions.move_to_element(opening_entries).pause(0.5).perform()
-        print("✅ Hovered over 'Opening Entries'")
+        element = self.wait.until(EC.element_to_be_clickable(self.opening_entries))
+        self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", element)
+        ActionChains(self.driver).move_to_element(element).click().perform()
+        print("Hovered and clicked on Opening Entries successfully")
         time.sleep(300)
 
 # def account_t_c(self):

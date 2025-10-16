@@ -9,14 +9,14 @@ from datetime import date
 
 
 # noinspection PyBroadException
-class DebitNotePage:
+class CreditNotePage:
     def __init__(self):
         self.driver = webdriver.Chrome()
         self.driver.maximize_window()
         self.wait = WebDriverWait(self.driver, 25)
         self.actions = ActionChains(self.driver)
 
-    # --- LOGIN SECTION ---
+    # --- Login ---
     def open(self):
         self.driver.get("https://redmiims.webredirect.himshang.com.np/#/login")
 
@@ -42,30 +42,35 @@ class DebitNotePage:
         )
         signin_button.click()
 
-    # --- HANDLE DUPLICATE LOGOUT ---
+    # --- Handle duplicate logout ---
     def handle_duplicate_logout(self):
         try:
+            # Try to find Logout button (if duplicate session alert appears)
             logout_button = WebDriverWait(self.driver, 5).until(
-                EC.element_to_be_clickable((By.XPATH, "//button[.//span[text()='Logout']]"))
+                EC.element_to_be_clickable((By.XPATH, "//button[.//span[normalize-space()='Logout']]"))
             )
             logout_button.click()
             print("✅ Logged out from duplicate session")
 
+            # Click OK to confirm logout
             ok_button = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//button[normalize-space(text())='OK']"))
             )
             ok_button.click()
             time.sleep(2)
 
+            # Re-login button
             re_login_btn = self.wait.until(
                 EC.element_to_be_clickable((By.CLASS_NAME, "btn-auth"))
             )
             re_login_btn.click()
-            print("✅ Clicked re-login button")
-        except Exception:
-            print("⚠ No duplicate session found")
+            time.sleep(3)
+            print("✅ Re-logged in successfully")
 
-        time.sleep(5)
+        except Exception:
+            # If no duplicate login found, assume normal login
+            print("✅ No duplicate session found — proceeding normally")
+
 
     # --- OPEN ACCOUNTING MODULE ---
     def open_accounting_module(self):
@@ -82,19 +87,19 @@ class DebitNotePage:
         except Exception as e:
             print("❌ Could not click Accounting Module:", e)
 
-    # --- OPEN DEBIT NOTE ENTRY ---
-    def open_debit_note(self):
+    # --- Open Credit Note ---
+    def open_credit_note(self):
         try:
-            # Step 1: Click Transactions
-            transaction_btn = self.wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//span[contains(.,'Transactions')]"))
+            # --- Step 1: Click Transaction ---
+            transaction_menu = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//span[contains(text(),'Transaction')]"))
             )
-            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", transaction_btn)
-            self.driver.execute_script("arguments[0].click();", transaction_btn)
-            print("✅ Clicked 'Transactions'")
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", transaction_menu)
+            self.driver.execute_script("arguments[0].click();", transaction_menu)
+            print("✅ Clicked Transaction menu")
             time.sleep(5)
 
-            # Step 2: Hover over Voucher Entries
+            # --- Step 2: Hover over Voucher Entries ---
             try:
                 voucher_entries = self.wait.until(
                     EC.element_to_be_clickable((By.LINK_TEXT, "Voucher Entries"))
@@ -114,130 +119,154 @@ class DebitNotePage:
             print("✅ Hovered over 'Voucher Entries'")
             time.sleep(5)
 
-            # Step 3: Click Debit Note
-            debit_note = self.wait.until(
-                EC.element_to_be_clickable((By.LINK_TEXT, "Debit Note - AC Base"))
+            # --- Step 3: Click Credit Note ---
+            credit_note = self.wait.until(
+                EC.element_to_be_clickable((By.LINK_TEXT, "Credit Note - AC Base"))
             )
-            self.driver.execute_script("arguments[0].scrollIntoView(true);", debit_note)
-            self.driver.execute_script("arguments[0].click();", debit_note)
-            print("✅ Clicked on 'Debit Note - AC Base'")
+            self.driver.execute_script("arguments[0].scrollIntoView(true);", credit_note)
+            self.driver.execute_script("arguments[0].click();", credit_note)
+            print("✅ Clicked 'Credit Note - AC Base'")
             time.sleep(5)
 
-            # Step 4: Enter Ref Number & Remarks
-            ref_number_field_dr = self.wait.until(
+            # Step 4: Enter reference number & remarks
+            ref_number_cr = self.wait.until(
                 EC.presence_of_element_located((By.XPATH, "//input[@id='refno']"))
             )
-            ref_number_field_dr.clear()
-            ref_number_field_dr.send_keys("REF-10019800")
+            ref_number_cr.clear()
+            ref_number_cr.send_keys("REF-10019800")
             print("✅ Entered Ref Number")
             time.sleep(5)
 
-            remarks_field_dr = self.wait.until(
+            remarks_field_cr = self.wait.until(
                 EC.presence_of_element_located((By.XPATH, "//input[@name='REMARKS']"))
             )
-            remarks_field_dr.click()
-            remarks_field_dr.send_keys("This is a test.")
+            remarks_field_cr.click()
+            remarks_field_cr.send_keys("Remarks for Credit Note")
             print("✅ Entered Remarks")
             time.sleep(5)
 
             # Step 5: Select Debit Account
-            debit_input = self.wait.until(
+            credit_input = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//input[@placeholder='press ENTER to Select A/C']"))
             )
-            self.driver.execute_script("arguments[0].click();", debit_input)
-            debit_input.send_keys(Keys.ENTER)
-            debit_ac1 = self.wait.until(
+            self.driver.execute_script("arguments[0].click();", credit_input)
+            credit_input.send_keys(Keys.ENTER)
+            credit_ac1 = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//div[@title='TheTestCustom']"))
             )
-            self.actions.move_to_element(debit_ac1).double_click(debit_ac1).perform()
+            self.actions.move_to_element(credit_ac1).double_click(credit_ac1).perform()
             print("✅ Selected Debit Account")
             time.sleep(5)
 
-            # Step 6: Select Ledger Account 1
-            ledger_input_dr = self.wait.until(
+            # Step 6: Ledger Account 1
+            ledger_input_cr = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//input[@id='ACCODEInput_0']"))
             )
-            self.driver.execute_script("arguments[0].click();", ledger_input_dr)
-            ledger_input_dr.send_keys(Keys.ENTER)
-            ledger_ac_dr = self.wait.until(
+            self.driver.execute_script("arguments[0].click();", ledger_input_cr)
+            ledger_input_cr.send_keys(Keys.ENTER)
+            ledger_ac_cr = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//div[@title='Siddhartha Bank']"))
             )
-            self.actions.move_to_element(ledger_ac_dr).double_click(ledger_ac_dr).perform()
+            self.actions.move_to_element(ledger_ac_cr).double_click(ledger_ac_cr).perform()
             print("✅ Selected Ledger Account 1")
             time.sleep(5)
 
-            # Step 7: Enter Amount 1
-            amount_field = self.wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//input[@id='CrAmtInput_0']"))
+            # Step 7: Amount 1
+            amount_input_cr = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//input[@id='DrAmtInput_0']"))
             )
-            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", amount_field)
-            amount_field.send_keys("10000")
-            print("✅ Entered Amount: 10000")
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", amount_input_cr)
+            amount_input_cr.send_keys("50000")
+            print("✅ Entered amount: 50000")
             time.sleep(5)
 
-            # Step 8: Enter Narration 1
-            narration_field_dr = self.wait.until(
+            # Step 8: Narration 1
+            narration_field_cr = self.wait.until(
                 EC.presence_of_element_located((By.XPATH, "//input[@id='narration_0']"))
             )
-            narration_field_dr.send_keys("Test Narration\n")
+            narration_field_cr.send_keys("Credit Note Narration 1\n")
             print("✅ Entered Narration 1")
             time.sleep(5)
 
-            # Step 9: Select Ledger Account 2
-            ledger_input_dr1 = self.wait.until(
+            # Step 9: Ledger Account 2
+            ledger_input_cr1 = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//input[@id='ACCODEInput_1']"))
             )
-            self.driver.execute_script("arguments[0].click();", ledger_input_dr1)
-            ledger_input_dr1.send_keys(Keys.ENTER)
-            ledger_ac_dr1 = self.wait.until(
+            self.driver.execute_script("arguments[0].click();", ledger_input_cr1)
+            ledger_input_cr1.send_keys(Keys.ENTER)
+            ledger_ac_cr1 = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//div[@title='Test Account']"))
             )
-            self.actions.move_to_element(ledger_ac_dr1).double_click(ledger_ac_dr1).perform()
+            self.actions.move_to_element(ledger_ac_cr1).double_click(ledger_ac_cr1).perform()
             print("✅ Selected Ledger Account 2")
             time.sleep(5)
 
-            # Step 10: Enter Amount 2
-            amount_field1 = self.wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//input[@id='CrAmtInput_1']"))
+            # Step 10: Amount 2
+            amount_input_cr1 = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//input[@id='DrAmtInput_1']"))
             )
-            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", amount_field1)
-            amount_field1.send_keys("20000")
-            print("✅ Entered Amount: 20000")
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", amount_input_cr1)
+            amount_input_cr1.send_keys("30000")
+            print("✅ Entered amount: 30000")
             time.sleep(5)
 
-            # Step 11: Enter Narration 2
-            narration_field_dr1 = self.wait.until(
+            # Step 11: Narration 2
+            narration_field_cr1 = self.wait.until(
                 EC.presence_of_element_located((By.XPATH, "//input[@id='narration_1']"))
             )
-            narration_field_dr1.send_keys("Test Narration\n")
+            narration_field_cr1.send_keys("Credit Note Narration 2\n")
             print("✅ Entered Narration 2")
             time.sleep(5)
 
-            # Step 12: Save & Confirm Debit Note
-            save_button_dnote = self.wait.until(
+            # Step 12: Save and Confirm Credit Note Entry
+            save_button_cnote = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='F6 SAVE']"))
             )
-            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", save_button_dnote)
-            self.driver.execute_script("arguments[0].click();", save_button_dnote)
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", save_button_cnote)
+            self.driver.execute_script("arguments[0].click();", save_button_cnote)
             print("✅ Clicked Save button")
             time.sleep(5)
 
-            yes_button_dnote = self.wait.until(
+            yes_button_cnote = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Yes']"))
             )
-            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", yes_button_dnote)
-            self.driver.execute_script("arguments[0].click();", yes_button_dnote)
-            print("✅ Clicked Yes on confirmation modal")
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", yes_button_cnote)
+            self.driver.execute_script("arguments[0].click();", yes_button_cnote)
+            print("✅ Confirmed Credit Note entry")
             time.sleep(5)
 
-            cancel_button_dnote = self.wait.until(
+            cancel_button_cnote = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Cancel']"))
             )
-            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", cancel_button_dnote)
-            self.driver.execute_script("arguments[0].click();", cancel_button_dnote)
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", cancel_button_cnote)
+            self.driver.execute_script("arguments[0].click();", cancel_button_cnote)
             print("✅ Clicked Cancel on confirmation modal")
 
         except Exception as e:
-            print("❌ Could not open Debit Note:", e)
+            print("❌ An error occurred while creating Credit Note:", e)
 
         time.sleep(500)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
