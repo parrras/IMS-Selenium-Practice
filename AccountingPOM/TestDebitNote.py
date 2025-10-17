@@ -12,6 +12,8 @@ def main():
     login.handle_duplicate_logout()
     login.open_accounting_module()
     login.open_debit_note()
+    login.edit_debit_note()
+    login.view_debit_note()
 
 if __name__ == "__main__":
     main()

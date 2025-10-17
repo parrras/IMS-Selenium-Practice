@@ -236,8 +236,137 @@ class DebitNotePage:
             self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", cancel_button_dnote)
             self.driver.execute_script("arguments[0].click();", cancel_button_dnote)
             print("✅ Clicked Cancel on confirmation modal")
+            time.sleep(10)
 
         except Exception as e:
             print("❌ Could not open Debit Note:", e)
 
-        time.sleep(500)
+
+    def edit_debit_note(self):
+        try:
+            # --- Step 13: Click EDIT button ---
+            edit_button_dr = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'F5 EDIT')]"))
+            )
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", edit_button_dr)
+            self.driver.execute_script("arguments[0].click();", edit_button_dr)
+            print("✅ Clicked on 'F5 EDIT' button")
+            time.sleep(5)
+
+            # --- Step 14: Double-click on the voucher to edit ---
+            dnote_to_edit = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//div[@title='10/17/2025']"))
+            )
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", dnote_to_edit)
+            self.actions.move_to_element(dnote_to_edit).double_click(dnote_to_edit).perform()
+            print("✅ Double-clicked on the voucher dated 10/17/2025 for editing")
+            time.sleep(5)
+
+            # Step 6: Edit Ledger Account 1 and 2
+            edit_ledger_input1 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@id='ACCODEInput_0']")))
+            self.driver.execute_script("arguments[0].click();", edit_ledger_input1)
+            edit_ledger_input1.send_keys(Keys.ENTER)
+            edit_ledger_ac1 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@title='SALES RETURN VOUCHER']")))
+            self.actions.move_to_element(edit_ledger_ac1).double_click(edit_ledger_ac1).perform()
+            print("✅ Edited Ledger Account 1")
+            time.sleep(5)
+
+            edit_ledger_input2 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@id='ACCODEInput_1']")))
+            self.driver.execute_script("arguments[0].click();", edit_ledger_input2)
+            edit_ledger_input2.send_keys(Keys.ENTER)
+            edit_ledger_ac2 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@title='SALES RETURN A/C']")))
+            self.actions.move_to_element(edit_ledger_ac2).double_click(edit_ledger_ac2).perform()
+            print("✅ Edited Ledger Account 2")
+            time.sleep(5)
+
+            # --- Step 15: Edit the amount fields of Debit Note ---
+            amount_field1 = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//input[@id='CrAmtInput_0']"))
+            )
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", amount_field1)
+            amount_field1.clear()
+            amount_field1.send_keys("15000")
+            print("💰 Updated Amount 1 to: 15000")
+            time.sleep(5)
+
+            amount_field2 = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//input[@id='CrAmtInput_1']"))
+            )
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", amount_field2)
+            amount_field2.clear()
+            amount_field2.send_keys("25000")
+            print("💰 Updated Amount 2 to: 25000")
+            time.sleep(5)
+
+            # --- Step 8: Edit Narration Fields of Debit Note ---
+            narration_field1 = self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//input[@id='narration_0']"))
+            )
+            narration_field1.clear()
+            narration_field1.send_keys("Updated Narration for Account 1")
+            print("📝 Updated Narration 1")
+            time.sleep(5)
+
+            narration_field2 = self.wait.until(
+                EC.presence_of_element_located((By.XPATH, "//input[@id='narration_1']"))
+            )
+            narration_field2.clear()
+            narration_field2.send_keys("Updated Narration for Account 2")
+            print("📝 Updated Narration 2")
+            time.sleep(5)
+
+            # Step 12: Save & Confirm Edited Debit Note
+            save_dnote_edit = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='F6 SAVE']"))
+            )
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", save_dnote_edit)
+            self.driver.execute_script("arguments[0].click();", save_dnote_edit)
+            print("✅ Clicked Save button")
+            time.sleep(5)
+
+            yes_dnote_edit = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Yes']"))
+            )
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", yes_dnote_edit)
+            self.driver.execute_script("arguments[0].click();", yes_dnote_edit)
+            print("✅ Clicked Yes on confirmation modal")
+            time.sleep(5)
+
+            cancel_dnote_edit = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Cancel']"))
+            )
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", cancel_dnote_edit)
+            self.driver.execute_script("arguments[0].click();", cancel_dnote_edit)
+            print("✅ Clicked Cancel on confirmation modal")
+            time.sleep(10)
+
+        except Exception as e:
+            print("❌ Could not open Debit Note:", e)
+
+    def view_debit_note(self):
+        try:
+            # --- Step 13: Click VIEW button ---
+            view_button_dnote = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'F4 VIEW')]"))
+            )
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", view_button_dnote)
+            self.driver.execute_script("arguments[0].click();", view_button_dnote)
+            print("✅ Clicked on 'F4 VIEW' button")
+            time.sleep(5)
+
+            # --- Step 14: Double-click on the Debit Note to view ---
+            dnote_to_view = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//div[@title='10/17/2025']"))
+            )
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", dnote_to_view)
+            self.actions.move_to_element(dnote_to_view).double_click(dnote_to_view).perform()
+            print("✅ Double-clicked on the voucher dated 10/17/2025 for viewing")
+
+            time.sleep(500)
+
+        except Exception as e:
+            print(f"❌ Error while deleting contra voucher: {e}")
+
+
+
+

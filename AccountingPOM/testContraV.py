@@ -12,6 +12,8 @@ def main():
     login.handle_duplicate_logout()
     login.open_accounting_module()
     login.open_contra_voucher()
+    login.edit_contra_voucher()
+    login.view_delete_contra_voucher()
 
 if __name__ == "__main__":
     main()
