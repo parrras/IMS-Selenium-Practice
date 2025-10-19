@@ -12,6 +12,7 @@ def main():
     login.handle_duplicate_logout()
     login.open_accounting_module()
     login.open_credit_note()
+    login.view_credit_note()
 
 if __name__ == "__main__":
     main()

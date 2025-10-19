@@ -1,12 +1,11 @@
 import time
+import random
 from selenium import webdriver
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from datetime import date
-
 
 # noinspection PyBroadException
 class CreditNotePage:
@@ -128,13 +127,15 @@ class CreditNotePage:
             print("✅ Clicked 'Credit Note - AC Base'")
             time.sleep(5)
 
-            # Step 4: Enter reference number & remarks
+            # Step 4: Generate a random reference number
+            random_ref = f"REF-{random.randint(100000, 999999)}"
+
+            # Locate and enter the reference number
             ref_number_cr = self.wait.until(
                 EC.presence_of_element_located((By.XPATH, "//input[@id='refno']"))
             )
-            ref_number_cr.clear()
-            ref_number_cr.send_keys("REF-10019800")
-            print("✅ Entered Ref Number")
+            ref_number_cr.send_keys(random_ref)
+            print(f"✅ Entered Ref Number: {random_ref}")
             time.sleep(5)
 
             remarks_field_cr = self.wait.until(
@@ -172,12 +173,13 @@ class CreditNotePage:
             time.sleep(5)
 
             # Step 7: Amount 1
+            random_amount_cr1 = random.randint(1000, 50000)
             amount_input_cr = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//input[@id='DrAmtInput_0']"))
             )
             self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", amount_input_cr)
-            amount_input_cr.send_keys("50000")
-            print("✅ Entered amount: 50000")
+            amount_input_cr.send_keys(str(random_amount_cr1))
+            print(f"✅ Entered Amount 1: {random_amount_cr1}")
             time.sleep(5)
 
             # Step 8: Narration 1
@@ -202,12 +204,13 @@ class CreditNotePage:
             time.sleep(5)
 
             # Step 10: Amount 2
+            random_amount_cr2 = random.randint(1000, 50000)
             amount_input_cr1 = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//input[@id='DrAmtInput_1']"))
             )
             self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", amount_input_cr1)
-            amount_input_cr1.send_keys("30000")
-            print("✅ Entered amount: 30000")
+            amount_input_cr1.send_keys(str(random_amount_cr2))
+            print(f"✅ Entered Amount 2: {random_amount_cr2}")
             time.sleep(5)
 
             # Step 11: Narration 2
@@ -241,11 +244,44 @@ class CreditNotePage:
             self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", cancel_button_cnote)
             self.driver.execute_script("arguments[0].click();", cancel_button_cnote)
             print("✅ Clicked Cancel on confirmation modal")
+            time.sleep(10)
 
         except Exception as e:
             print("❌ An error occurred while creating Credit Note:", e)
 
-        time.sleep(500)
+    def view_credit_note(self):
+        try:
+            # --- Step 13: View the Credit Note ---
+            view_button_cnote = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='F4 VIEW']"))
+            )
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", view_button_cnote)
+            self.driver.execute_script("arguments[0].click();", view_button_cnote)
+            print("✅ Clicked View button")
+            time.sleep(5)
+
+            # --- Step 14: Double-click on the Credit Note to view ---
+            cnote_to_view = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//div[@title='10/19/2025']"))
+            )
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", cnote_to_view)
+            self.actions.move_to_element(cnote_to_view).double_click(cnote_to_view).perform()
+            print("✅ Opened Credit Note for viewing")
+            time.sleep(10)
+
+            # --- Step 15: Click the back button after viewing ---
+            back_button_cnote = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='F10 BACK']"))
+            )
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", back_button_cnote)
+            self.driver.execute_script("arguments[0].click();", back_button_cnote)
+            print("✅ Clicked Back button after viewing Credit Note")
+
+            time.sleep(500)
+
+        except Exception as e:
+            print("❌ An error occurred while viewing Credit Note:", e)
+
 
 
 

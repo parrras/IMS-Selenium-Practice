@@ -1,11 +1,11 @@
 import time
+import random
 from selenium import webdriver
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from datetime import date
 
 
 # noinspection PyBroadException
@@ -124,12 +124,14 @@ class DebitNotePage:
             time.sleep(5)
 
             # Step 4: Enter Ref Number & Remarks
+            random_ref_dr = f"REF-{random.randint(100000, 999999)}"
+
             ref_number_field_dr = self.wait.until(
                 EC.presence_of_element_located((By.XPATH, "//input[@id='refno']"))
             )
             ref_number_field_dr.clear()
-            ref_number_field_dr.send_keys("REF-10019800")
-            print("✅ Entered Ref Number")
+            ref_number_field_dr.send_keys(random_ref_dr)
+            print(f"✅ Entered Ref Number: {random_ref_dr}")
             time.sleep(5)
 
             remarks_field_dr = self.wait.until(
@@ -167,12 +169,15 @@ class DebitNotePage:
             time.sleep(5)
 
             # Step 7: Enter Amount 1
+            random_amount = random.randint(1000, 50000)  # generates random amount between 1000–50000
+
             amount_field = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//input[@id='CrAmtInput_0']"))
             )
             self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", amount_field)
-            amount_field.send_keys("10000")
-            print("✅ Entered Amount: 10000")
+            amount_field.clear()
+            amount_field.send_keys(str(random_amount))
+            print(f"✅ Entered Amount: {random_amount}")
             time.sleep(5)
 
             # Step 8: Enter Narration 1
@@ -197,12 +202,15 @@ class DebitNotePage:
             time.sleep(5)
 
             # Step 10: Enter Amount 2
+            random_amount2 = random.randint(1000, 50000)  # generates random amount between 1000–50000
+
             amount_field1 = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//input[@id='CrAmtInput_1']"))
             )
             self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", amount_field1)
-            amount_field1.send_keys("20000")
-            print("✅ Entered Amount: 20000")
+            amount_field1.clear()
+            amount_field1.send_keys(str(random_amount2))
+            print(f"✅ Entered Amount: {random_amount2}")
             time.sleep(5)
 
             # Step 11: Enter Narration 2
@@ -280,22 +288,24 @@ class DebitNotePage:
             time.sleep(5)
 
             # --- Step 15: Edit the amount fields of Debit Note ---
-            amount_field1 = self.wait.until(
+            random_amount_edit1 = random.randint(1000, 30000)
+            amount_field_edit1 = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//input[@id='CrAmtInput_0']"))
             )
-            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", amount_field1)
-            amount_field1.clear()
-            amount_field1.send_keys("15000")
-            print("💰 Updated Amount 1 to: 15000")
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", amount_field_edit1)
+            amount_field_edit1.clear()
+            amount_field_edit1.send_keys(str(random_amount_edit1))
+            print(f"💰 Updated Amount 1 to: {random_amount_edit1}")
             time.sleep(5)
 
-            amount_field2 = self.wait.until(
+            random_amount_edit2 = random.randint(1000, 30000)
+            amount_field_edit2 = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//input[@id='CrAmtInput_1']"))
             )
-            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", amount_field2)
-            amount_field2.clear()
-            amount_field2.send_keys("25000")
-            print("💰 Updated Amount 2 to: 25000")
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", amount_field_edit2)
+            amount_field_edit2.clear()
+            amount_field_edit2.send_keys(str(random_amount_edit2))
+            print(f"💰 Updated Amount 2 to: {random_amount_edit2}")
             time.sleep(5)
 
             # --- Step 8: Edit Narration Fields of Debit Note ---
@@ -304,7 +314,7 @@ class DebitNotePage:
             )
             narration_field1.clear()
             narration_field1.send_keys("Updated Narration for Account 1")
-            print("📝 Updated Narration 1")
+            print("Updated Narration 1")
             time.sleep(5)
 
             narration_field2 = self.wait.until(
@@ -312,7 +322,7 @@ class DebitNotePage:
             )
             narration_field2.clear()
             narration_field2.send_keys("Updated Narration for Account 2")
-            print("📝 Updated Narration 2")
+            print("Updated Narration 2")
             time.sleep(5)
 
             # Step 12: Save & Confirm Edited Debit Note
@@ -361,6 +371,15 @@ class DebitNotePage:
             self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", dnote_to_view)
             self.actions.move_to_element(dnote_to_view).double_click(dnote_to_view).perform()
             print("✅ Double-clicked on the voucher dated 10/17/2025 for viewing")
+            time.sleep(10)
+
+            # --- Step 15: Click the Back button to exit view mode ---
+            back_button_dnote = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='F10 BACK']"))
+            )
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", back_button_dnote)
+            self.driver.execute_script("arguments[0].click();", back_button_dnote)
+            print("✅ Clicked on 'F10 BACK' button to exit view mode")
 
             time.sleep(500)
 
