@@ -262,7 +262,7 @@ class CreditNotePage:
 
             # --- Step 14: Double-click on the Credit Note to view ---
             cnote_to_view = self.wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//div[@title='10/19/2025']"))
+                EC.element_to_be_clickable((By.XPATH, "//div[@title='10/26/2025']"))
             )
             self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", cnote_to_view)
             self.actions.move_to_element(cnote_to_view).double_click(cnote_to_view).perform()

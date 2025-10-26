@@ -45,25 +45,28 @@ class DebitNotePage:
     # --- HANDLE DUPLICATE LOGOUT ---
     def handle_duplicate_logout(self):
         try:
-            logout_button = WebDriverWait(self.driver, 5).until(
-                EC.element_to_be_clickable((By.XPATH, "//button[.//span[text()='Logout']]"))
-            )
-            logout_button.click()
-            print("✅ Logged out from duplicate session")
+            # Define the locators directly inside the function
+            logout_button_locator = (By.XPATH, "//span[normalize-space(text())='Logout']")
+            login_button_locator = (By.XPATH, "//button[normalize-space(text())='Sign In']")
 
-            ok_button = self.wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//button[normalize-space(text())='OK']"))
+            # Wait for and click the Logout button from popup
+            popup_logout_button = WebDriverWait(self.driver, 20).until(
+                EC.element_to_be_clickable(logout_button_locator)
             )
-            ok_button.click()
-            time.sleep(2)
+            popup_logout_button.click()
+            print("✅ Detected previous session popup and clicked Logout.")
+            time.sleep(5)
 
-            re_login_btn = self.wait.until(
-                EC.element_to_be_clickable((By.CLASS_NAME, "btn-auth"))
+            # Wait for and click the Sign In button again
+            login_button = WebDriverWait(self.driver, 20).until(
+                EC.element_to_be_clickable(login_button_locator)
             )
-            re_login_btn.click()
-            print("✅ Clicked re-login button")
-        except Exception:
-            print("⚠ No duplicate session found")
+            login_button.click()
+            print("✅ Login button clicked again after logout.")
+
+        except Exception as e:
+            print(f"⚠ No previous session popup detected or unable to locate elements: {e}")
+
 
         time.sleep(5)
 
@@ -249,7 +252,6 @@ class DebitNotePage:
         except Exception as e:
             print("❌ Could not open Debit Note:", e)
 
-
     def edit_debit_note(self):
         try:
             # --- Step 13: Click EDIT button ---
@@ -263,18 +265,18 @@ class DebitNotePage:
 
             # --- Step 14: Double-click on the voucher to edit ---
             dnote_to_edit = self.wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//div[@title='10/17/2025']"))
+                EC.element_to_be_clickable((By.XPATH, "//div[@title='10/26/2025']"))
             )
             self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", dnote_to_edit)
             self.actions.move_to_element(dnote_to_edit).double_click(dnote_to_edit).perform()
-            print("✅ Double-clicked on the voucher dated 10/17/2025 for editing")
+            print("✅ Double-clicked on the voucher dated 10/26/2025 for editing")
             time.sleep(5)
 
             # Step 6: Edit Ledger Account 1 and 2
             edit_ledger_input1 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@id='ACCODEInput_0']")))
             self.driver.execute_script("arguments[0].click();", edit_ledger_input1)
             edit_ledger_input1.send_keys(Keys.ENTER)
-            edit_ledger_ac1 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@title='SALES RETURN VOUCHER']")))
+            edit_ledger_ac1 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@title='ROUNDING A/C']")))
             self.actions.move_to_element(edit_ledger_ac1).double_click(edit_ledger_ac1).perform()
             print("✅ Edited Ledger Account 1")
             time.sleep(5)
@@ -282,7 +284,7 @@ class DebitNotePage:
             edit_ledger_input2 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@id='ACCODEInput_1']")))
             self.driver.execute_script("arguments[0].click();", edit_ledger_input2)
             edit_ledger_input2.send_keys(Keys.ENTER)
-            edit_ledger_ac2 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@title='SALES RETURN A/C']")))
+            edit_ledger_ac2 = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@title='PETTY CASH A/C']")))
             self.actions.move_to_element(edit_ledger_ac2).double_click(edit_ledger_ac2).perform()
             print("✅ Edited Ledger Account 2")
             time.sleep(5)
@@ -313,7 +315,7 @@ class DebitNotePage:
             EC.presence_of_element_located((By.XPATH, "//input[@id='narration_0']"))
             )
             narration_field1.clear()
-            narration_field1.send_keys("Updated Narration for Account 1")
+            narration_field1.send_keys("Updated Nar for Acc 1")
             print("Updated Narration 1")
             time.sleep(5)
 
@@ -321,7 +323,7 @@ class DebitNotePage:
                 EC.presence_of_element_located((By.XPATH, "//input[@id='narration_1']"))
             )
             narration_field2.clear()
-            narration_field2.send_keys("Updated Narration for Account 2")
+            narration_field2.send_keys("Updated Nar for Acc 2")
             print("Updated Narration 2")
             time.sleep(5)
 
@@ -366,11 +368,11 @@ class DebitNotePage:
 
             # --- Step 14: Double-click on the Debit Note to view ---
             dnote_to_view = self.wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//div[@title='10/17/2025']"))
+                EC.element_to_be_clickable((By.XPATH, "//div[@title='10/26/2025']"))
             )
             self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", dnote_to_view)
             self.actions.move_to_element(dnote_to_view).double_click(dnote_to_view).perform()
-            print("✅ Double-clicked on the voucher dated 10/17/2025 for viewing")
+            print("✅ Double-clicked on the voucher dated 10/26/2025 for viewing")
             time.sleep(10)
 
             # --- Step 15: Click the Back button to exit view mode ---
