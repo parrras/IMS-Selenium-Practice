@@ -1,0 +1,2 @@
+⚠ No previous session popup detected.
+✅ Login successful (fallback)
