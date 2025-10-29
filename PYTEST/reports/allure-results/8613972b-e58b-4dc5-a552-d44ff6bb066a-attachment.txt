@@ -1,0 +1,5 @@
+Login process completed.
+Logout button or login page not found, skipping logout.
+logged out from the prev session
+Clicked OK on confirmation dialog.
+login bhayo

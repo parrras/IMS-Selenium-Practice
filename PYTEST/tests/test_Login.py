@@ -9,7 +9,8 @@ from selenium import webdriver
 
 @allure.title("Login to IMS Application")
 @allure.description("This test logs into the IMS application using valid credentials and verifies the dashboard.")
-def test_login_to_ims(driver):
+def test_login_to_ims(setup):
+    driver= setup
     login = Login(driver)
     login.perform_login("Paras", "Ims@1234")
     print("Login process completed.")
