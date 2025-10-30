@@ -7,6 +7,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Add_Customer import Customer
 
+
+# noinspection PyBroadException
 @allure.title("Create Customer in IMS Application")
 @allure.description("Logs in, navigates to Customer Master, and creates a new customer record.")
 def test_create_customer(setup):
@@ -32,11 +34,11 @@ def test_create_customer(setup):
     # --- Step 2: Create Customer ---
     customer = Customer(driver)
     customer.create_customer(
-        name="Hh Khaa",
-        address="Hil Nepal",
-        vat_no="2621",
-        email="p@gmail.com",
-        mobile="9811121872"
+        name="Jack Dai",
+        address="Texas USA",
+        vat_no="6969",
+        email="jacknepaliho@gmail.com",
+        mobile="9102946532"
     )
     print("✅ Customer creation process completed")
 

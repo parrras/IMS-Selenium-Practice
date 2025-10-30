@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def setup():
     """Setup Chrome driver for tests"""
     chrome_options = Options()

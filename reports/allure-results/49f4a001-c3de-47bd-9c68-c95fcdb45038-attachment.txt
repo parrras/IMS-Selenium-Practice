@@ -1,7 +1,0 @@
-✅ Logged into IMS
-Logged out successfully.
-Clicked OK on confirmation dialog.
-login bhayo
-✅ Clicked Sign In
-✅ Customer creation process completed
-🎉 Customer created successfully and verified.
