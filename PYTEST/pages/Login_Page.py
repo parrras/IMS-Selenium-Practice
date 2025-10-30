@@ -30,12 +30,6 @@ class Login:
             logout_button.click()
             print("Logged out successfully.")
 
-            # ok_button = self.wait.until(
-            #     EC.element_to_be_clickable((By.XPATH, "//button[text()='OK']"))
-            # )
-            # ok_button.click()
-            # print("Clicked OK on confirmation dialog.")
-
         except TimeoutException:
             print("Logout button or login page not found, skipping logout.")
 
@@ -53,4 +47,7 @@ class Login:
         )
         signin_button.click()
         print("login bhayo")
+
+
+
 

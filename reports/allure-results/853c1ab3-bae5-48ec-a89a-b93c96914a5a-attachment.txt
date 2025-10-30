@@ -1,5 +1,6 @@
 Login process completed.
-Logout button or login page not found, skipping logout.
+Logged out successfully.
 logged out from the prev session
 Clicked OK on confirmation dialog.
 login bhayo
+Dashboard page loaded successfully!

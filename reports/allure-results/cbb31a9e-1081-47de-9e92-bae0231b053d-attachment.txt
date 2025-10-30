@@ -1,0 +1,6 @@
+Login process completed.
+Logged out successfully.
+logged out from the prev session
+Clicked OK on confirmation dialog.
+login bhayo
+Dashboard page loaded successfully!
