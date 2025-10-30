@@ -1,12 +1,12 @@
+# conftest.py
 import pytest
 import allure
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 
-
-@pytest.fixture(scope="session")
+@pytest.fixture
 def setup():
     """Setup Chrome driver for tests"""
     chrome_options = Options()
@@ -14,28 +14,27 @@ def setup():
     chrome_options.add_argument("--disable-notifications")
     chrome_options.add_argument("--disable-infobars")
     chrome_options.add_argument("--disable-extensions")
-    chrome_options.add_argument("--remote-allow-origins=*")
-    chrome_options.add_argument("--disable-gpu")  # sometimes helps Windows
-    # chrome_options.add_argument("--headless")  # optional for CI/CD
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--remote-allow-origins=*")  # fix for Selenium 4.35+
+    # chrome_options.add_argument("--headless")  # uncomment if running CI
 
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
-    driver.implicitly_wait(10)  # increased for stability
+    driver = webdriver.Chrome(
+        service=Service(ChromeDriverManager().install()),
+        options=chrome_options
+    )
+    driver.implicitly_wait(10)  # wait for elements globally
     yield driver
     driver.quit()
 
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
-    """Attach screenshot on failure for Allure"""
+    """Attach screenshot to Allure on test failure"""
     outcome = yield
     report = outcome.get_result()
 
-    if report.failed:  # captures both "setup" and "call" phase failures
-        driver = None
-
-        if "setup" in item.funcargs:
-            driver = item.funcargs["setup"]
-
+    if report.failed:
+        driver = item.funcargs.get("setup", None)
         if driver:
             try:
                 allure.attach(

@@ -28,7 +28,6 @@ def test_login_to_ims(setup):
     assert date_input, "Date input not found"
 
 
-    driver.quit()
 
 
 

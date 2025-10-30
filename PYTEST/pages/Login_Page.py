@@ -15,7 +15,7 @@ class Login:
 
 
     def perform_login(self, username, password):
-        self.driver.get("https://redmiims.webredirect.himshang.com.np/#/login")
+        self.driver.get("https://redmiims.variantqa.himshang.com.np/#/login")
         self.wait.until(EC.presence_of_element_located(
             (By.XPATH, "//input[@placeholder='Username']")  # safer placeholder/XPath
         )).send_keys(username)

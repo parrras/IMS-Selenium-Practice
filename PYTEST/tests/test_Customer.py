@@ -1,10 +1,9 @@
-# PYTEST/tests/test_Customer.py
+# tests/test_Customer.py
 import pytest
 import allure
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium import webdriver
 from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Add_Customer import Customer
 
@@ -14,29 +13,36 @@ def test_create_customer(setup):
     driver = setup
     wait = WebDriverWait(driver, 30)
 
-    # Login
+    # --- Step 1: Login ---
     login = Login(driver)
+    driver.get("https://redmiims.webredirect.himshang.com.np/#/login")
     login.perform_login("Paras", "Ims@1234")
-    print("✅ Logged in")
+    print("✅ Logged into IMS")
 
-    # Wait for dashboard
-    wait.until(EC.presence_of_element_located((By.ID, "Date")))
-    print("✅ Dashboard loaded")
+    # Optional: handle logout from previous session
+    try:
+        login.perform_logout()
+        login.perform_ok()
+    except:
+        pass
 
-    # Create customer
+    login.click_signin()
+    print("✅ Clicked Sign In")
+
+    # --- Step 2: Create Customer ---
     customer = Customer(driver)
     customer.create_customer(
-        name="Hergfffh Khadka",
-        address="Himl Nepal",
-        vat_no="265565621",
-        email="rjhjgl@gmail.com",
-        mobile="9801121872"
+        name="Hh Khaa",
+        address="Hil Nepal",
+        vat_no="2621",
+        email="p@gmail.com",
+        mobile="9811121872"
     )
-    print("✅ Customer created")
+    print("✅ Customer creation process completed")
 
-    # Verify success
-    success_msg = wait.until(
+    # --- Step 3: Verify success message ---
+    success_message = wait.until(
         EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'Customer saved successfully')]"))
     )
-    assert success_msg.is_displayed()
-    print("🎉 Customer creation verified")
+    assert success_message.is_displayed(), "❌ Customer creation failed"
+    print("🎉 Customer created successfully and verified.")
