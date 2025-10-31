@@ -1,0 +1,1 @@
+Added barcode 1.123 with qty 20

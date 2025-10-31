@@ -1,0 +1,1 @@
+Adding product #1: 5prod -Mprod -0prod -Gprod -Y

@@ -16,7 +16,7 @@ class AddProductPage:
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 20)
-        self.csv_file = 'products.csv'
+        self.csv_file = 'Added_Products.csv'
 
     # --- Login ---
     @allure.step("Login to IMS application")
@@ -65,7 +65,8 @@ class AddProductPage:
 
     # --- Generate random data ---
     def generate_random_name(self, length=5):
-        return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(length))
+        product= ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(length))
+        return ("prod-" + product)
 
     # --- Add multiple products ---
     @allure.step("Add 10 random products (first 5: inventory & ticked, next 5: service & unticked)")
@@ -82,7 +83,7 @@ class AddProductPage:
                 stock_unit = "Bottle"
                 purchase_price = random.randint(10, 500)
                 sales_price = random.randint(purchase_price + 150, purchase_price + 200)
-                barcode = f"1.{108 + i}"
+                barcode = f"1.{175 + i}"
                 supplier = "ABC SUPPLIER PVT. LTD."
 
                 # ✅ Logging product details
@@ -147,18 +148,31 @@ class AddProductPage:
         except Exception as e:
             print("⚠️ Item Type selection failed:", e)
 
-        # ✅ Supplier selection
+        time.sleep(5)
+
+        # ✅ Supplier selection (Fixed)
         try:
             supplier_field = wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//input[@placeholder='Press Enter to select']")))
-            supplier_field.click()
+                EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Press Enter to select']"))
+            )
+            # Scroll it into view to avoid interception by footer
+            self.driver.execute_script("arguments[0].scrollIntoView(true);", supplier_field)
+            time.sleep(1)
+
+            # Use JS click instead of normal click
+            self.driver.execute_script("arguments[0].click();", supplier_field)
             supplier_field.send_keys(Keys.ENTER)
-            supplier_to_select = wait.until(EC.element_to_be_clickable(
-                (By.XPATH, "//td[normalize-space(text())='ABC SUPPLIER PVT. LTD.']"))
+
+            supplier_to_select = wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//td[normalize-space(text())='Sujata Vendor']"))
             )
             ActionChains(self.driver).move_to_element(supplier_to_select).double_click(supplier_to_select).perform()
+            print("✅ Supplier selected successfully: Sujata Vendor")
+
         except Exception as e:
             print("❌ Supplier selection failed:", e)
+
+        time.sleep(5)
 
         # ✅ Handle checkbox tick/untick
         try:
@@ -174,11 +188,23 @@ class AddProductPage:
         except Exception as e:
             print("⚠️ Checkbox interaction failed:", e)
 
-        # ✅ Save Product
-        save_btn = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@id='save']")))
-        save_btn.click()
-        print("💾 Product saved successfully.")
-        time.sleep(4)
+        # ✅ Save Product (Fixed)
+        try:
+            save_btn = wait.until(EC.presence_of_element_located((By.XPATH, "//button[@id='save']")))
+            # Scroll into view in case footer or popup overlaps
+            self.driver.execute_script("arguments[0].scrollIntoView(true);", save_btn)
+            time.sleep(1)
+
+            # Wait for it to be clickable
+            wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@id='save']")))
+
+            # Use JS click to avoid interception
+            self.driver.execute_script("arguments[0].click();", save_btn)
+            print("💾 Product saved successfully (via JS click).")
+            time.sleep(3)
+
+        except Exception as e:
+            print("❌ Save button click failed:", e)
 
         # Handle alert
         try:

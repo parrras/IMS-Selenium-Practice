@@ -122,7 +122,7 @@ with open(csv_file, 'w', newline='') as file:
         stock_unit = "Bottle"
         purchase_price = random.randint(10, 500)
         sales_price = random.randint(purchase_price + 150, purchase_price + 200)
-        barcode = f"1.{108 + i}"  # starting from 1.103
+        barcode = f"1.{108 + i}"  # starting from 1.108
         supplier = "ABC SUPPLIER PVT. LTD."
 
         # --- Enter product details ---

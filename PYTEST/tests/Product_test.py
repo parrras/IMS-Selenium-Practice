@@ -6,8 +6,8 @@ from PYTEST.pages.Add_Product import AddProductPage
 
 
 # noinspection PyBroadException
-@allure.title("Add Products in IMS Application")
-@allure.description("Logs in, navigates to Product Master, and adds multiple products.")
+@allure.title("Add Products and Generate Invoice in IMS Application")
+@allure.description("Logs in, navigates to Product Master, adds 10 products, and generates a purchase invoice.")
 def test_add_products(setup):
     driver = setup
     wait = WebDriverWait(driver, 30)
@@ -19,30 +19,30 @@ def test_add_products(setup):
         login.perform_login("Paras", "Ims@1234")
         print("✅ Logged into IMS")
 
+        # Optional: handle logout from previous session
         try:
             login.perform_logout()
             login.perform_ok()
-        except:
+        except Exception:
             pass
 
         login.click_signin()
         print("✅ Clicked Sign In")
 
+        # --- Step 2: Add Product Page ---
         add_product = AddProductPage(driver)
 
-        # --- Step 2: Navigate to Add Product ---
+        # Navigate to Add Product page
         add_product.navigate_to_add_product()
 
-        # --- Step 3: Select Item Group ---
+        # Select Item Group
         add_product.select_item_group()
 
-        # --- Step 4: Add 10 Products ---
+        # Add 10 Products (first 5 inventory & ticked, last 5 service & unticked)
         add_product.add_multiple_products(count=10)
 
-        allure.attach("✅ Test completed successfully", name="Result", attachment_type=allure.attachment_type.TEXT)
-
     except Exception as e:
-        # Capture screenshot and log error details
+        # Capture screenshot and log error details for Allure
         allure.attach(driver.get_screenshot_as_png(), name="Error Screenshot", attachment_type=allure.attachment_type.PNG)
         allure.attach(str(e), name="Error Details", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"❌ Test failed due to: {e}")

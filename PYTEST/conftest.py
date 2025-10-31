@@ -15,16 +15,16 @@ def setup():
     chrome_options.add_argument("--disable-extensions")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--remote-allow-origins=*")  # fix for Selenium 4.35+
-    # chrome_options.add_argument("--headless")  # Uncomment if running in CI/CD
+    # chrome_options.add_argument("--headless")  # Uncomment for CI/CD
 
     driver = webdriver.Chrome(
         service=Service(ChromeDriverManager().install()),
         options=chrome_options
     )
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(15)  # slightly higher for slower pages
     yield driver
+    print("🔹 Quitting browser after test")
     driver.quit()
-
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
