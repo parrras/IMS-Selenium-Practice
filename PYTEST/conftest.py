@@ -1,4 +1,3 @@
-# conftest.py
 import pytest
 import allure
 from selenium import webdriver
@@ -16,13 +15,13 @@ def setup():
     chrome_options.add_argument("--disable-extensions")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--remote-allow-origins=*")  # fix for Selenium 4.35+
-    # chrome_options.add_argument("--headless")  # uncomment if running CI
+    # chrome_options.add_argument("--headless")  # Uncomment if running in CI/CD
 
     driver = webdriver.Chrome(
         service=Service(ChromeDriverManager().install()),
         options=chrome_options
     )
-    driver.implicitly_wait(10)  # wait for elements globally
+    driver.implicitly_wait(10)
     yield driver
     driver.quit()
 

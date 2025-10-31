@@ -17,7 +17,7 @@ def test_create_customer(setup):
 
     # --- Step 1: Login ---
     login = Login(driver)
-    driver.get("https://redmiims.webredirect.himshang.com.np/#/login")
+    driver.get("https://redmiims.variantqa.himshang.com.np/#/login")
     login.perform_login("Paras", "Ims@1234")
     print("✅ Logged into IMS")
 
@@ -34,11 +34,11 @@ def test_create_customer(setup):
     # --- Step 2: Create Customer ---
     customer = Customer(driver)
     customer.create_customer(
-        name="Jack Dai",
-        address="Texas USA",
-        vat_no="6969",
-        email="jacknepaliho@gmail.com",
-        mobile="9102946532"
+        name="Jackey Dada",
+        address="Dallas USA",
+        vat_no="6979",
+        email="jaceyho@gmail.com",
+        mobile="9102941023"
     )
     print("✅ Customer creation process completed")
 
