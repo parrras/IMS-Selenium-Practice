@@ -64,9 +64,10 @@ class AddProductPage:
         ok_button.click()
 
     # --- Generate random data ---
-    def generate_random_name(self, length=5):
+    @staticmethod
+    def generate_random_name(length=5):
         product= ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(length))
-        return ("prod-" + product)
+        return "prod-" + product
 
     # --- Add multiple products ---
     @allure.step("Add 10 random products (first 5: inventory & ticked, next 5: service & unticked)")
@@ -83,7 +84,7 @@ class AddProductPage:
                 stock_unit = "Bottle"
                 purchase_price = random.randint(10, 500)
                 sales_price = random.randint(purchase_price + 150, purchase_price + 200)
-                barcode = f"1.{175 + i}"
+                barcode = f"1.{216 + i}"
                 supplier = "ABC SUPPLIER PVT. LTD."
 
                 # ✅ Logging product details
