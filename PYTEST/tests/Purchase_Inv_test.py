@@ -6,8 +6,8 @@ from PYTEST.pages.Purchase_Invoice import PurchaseInvoicePage
 
 
 # noinspection PyBroadException
-@allure.title("Add Products and Generate Invoice in IMS Application")
-@allure.description("Logs in, navigates to Product Master, adds 10 products, and generates a purchase invoice.")
+@allure.title(" Generate Purchase Invoice in IMS Application")
+@allure.description("Logs in, navigates to Transactions, then Purchase Invoice, and generates a purchase invoice.")
 def test_generate_purchase_invoice(setup):
     driver = setup
     wait = WebDriverWait(driver, 30)

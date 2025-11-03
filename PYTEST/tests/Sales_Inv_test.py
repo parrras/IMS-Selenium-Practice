@@ -6,8 +6,8 @@ from PYTEST.pages.Sales_Invoice import SalesInvoicePage
 
 
 # noinspection PyBroadException
-@allure.title("Add Products and Generate Invoice in IMS Application")
-@allure.description("Logs in, navigates to Product Master, adds 10 products, and generates a purchase invoice.")
+@allure.title(" Generate Sales Invoice in IMS Application")
+@allure.description("Logs in, navigates to Transactions, then Sales Tax Invoice, and generates a sales tax invoice.")
 def test_generate_sales_invoice(setup):
     driver = setup
     wait = WebDriverWait(driver, 30)

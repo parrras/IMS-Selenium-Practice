@@ -6,8 +6,8 @@ from PYTEST.pages.Add_Product import AddProductPage
 
 
 # noinspection PyBroadException
-@allure.title("Add Products and Generate Invoice in IMS Application")
-@allure.description("Logs in, navigates to Product Master, adds 10 products, and generates a purchase invoice.")
+@allure.title("Add Products in IMS Application")
+@allure.description("Logs in, navigates to Product Master, and adds 10 products.")
 def test_add_products(setup):
     driver = setup
     wait = WebDriverWait(driver, 30)
