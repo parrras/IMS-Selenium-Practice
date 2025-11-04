@@ -7,24 +7,31 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 @pytest.fixture(scope="function")
 def setup():
-    """Setup Chrome driver for tests"""
+    """Setup Chrome driver for tests (Headless Mode)"""
     chrome_options = Options()
-    chrome_options.add_argument("--start-maximized")
+
+    # ✅ Headless configuration
+    chrome_options.add_argument("--headless=new")  # modern headless mode
+    chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--disable-notifications")
     chrome_options.add_argument("--disable-infobars")
     chrome_options.add_argument("--disable-extensions")
-    chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--remote-allow-origins=*")  # fix for Selenium 4.35+
-    # chrome_options.add_argument("--headless")  # Uncomment for CI/CD
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--remote-allow-origins=*")
 
     driver = webdriver.Chrome(
         service=Service(ChromeDriverManager().install()),
         options=chrome_options
     )
-    driver.implicitly_wait(15)  # slightly higher for slower pages
+    driver.implicitly_wait(15)
+
     yield driver
+
     print("🔹 Quitting browser after test")
     driver.quit()
+
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):

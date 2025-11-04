@@ -161,7 +161,7 @@ try:
     time.sleep(2)
 
     supplier_to_select = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//div[normalize-space()='ABC SUPPLIER PVT. LTD.']"))
+        EC.element_to_be_clickable((By.XPATH, "//div[normalize-space()='Sujata Vendor']"))
     )
     actions.move_to_element(supplier_to_select).double_click().perform()
     print("✅ Selected Supplier: ABC SUPPLIER PVT. LTD.")
