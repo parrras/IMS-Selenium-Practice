@@ -21,7 +21,7 @@ class AddProductPage:
     # --- Login ---
     @allure.step("Login to IMS application")
     def login(self, username, password):
-        self.driver.get("https://grn.variantqa.himshang.com.np/#/login")
+        self.driver.get("https://redmiims.variantqa.himshang.com.np/#/login")
         self.wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/app/div/ng-component/div/form/div/div[2]/input"))).send_keys(username)
         self.driver.find_element(By.XPATH, "/html/body/app/div/ng-component/div/form/div/div[3]/input").send_keys(password)
         self.driver.find_element(By.XPATH, "//button[normalize-space(text())='Sign In']").click()
@@ -67,7 +67,7 @@ class AddProductPage:
     @staticmethod
     def generate_random_name(length=5):
         product= ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(length))
-        return "prod-" + product
+        return "prd-" + product
 
     # --- Add multiple products ---
     @allure.step("Add 10 random products (first 5: inventory & ticked, next 5: service & unticked)")
@@ -84,7 +84,7 @@ class AddProductPage:
                 stock_unit = "Bottle"
                 purchase_price = random.randint(10, 500)
                 sales_price = random.randint(purchase_price + 150, purchase_price + 200)
-                barcode = f"1.{254 + i}"
+                barcode = f"1.{314 + i}"
                 supplier = "Sujata Vendor"
 
                 # ✅ Logging product details

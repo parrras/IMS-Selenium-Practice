@@ -5,15 +5,14 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
+
 @pytest.fixture(scope="function")
 def setup():
-    """Setup Chrome driver for tests (Headless Mode)"""
+    """Setup Chrome driver for tests (Headed Mode — browser visible)"""
     chrome_options = Options()
 
-    # ✅ Headless configuration
-    chrome_options.add_argument("--headless=new")  # modern headless mode
-    chrome_options.add_argument("--window-size=1920,1080")
-    chrome_options.add_argument("--disable-gpu")
+    # ✅ Normal (headed) browser mode
+    chrome_options.add_argument("--start-maximized")
     chrome_options.add_argument("--disable-notifications")
     chrome_options.add_argument("--disable-infobars")
     chrome_options.add_argument("--disable-extensions")

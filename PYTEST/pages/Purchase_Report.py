@@ -99,12 +99,20 @@ class PurchaseBookReportPage:
             raise AssertionError(f"❌ Failed to click 'RUN' button: {e}")
         time.sleep(3)
 
-
-        # ✅ Step 5: Confirm table loaded
+        # ✅ Step 5: Confirm table loaded and take screenshot
         try:
             table = wait.until(EC.presence_of_element_located((By.XPATH, "//table[contains(@class,'table')]")))
             rows = table.find_elements(By.XPATH, ".//tr")
             print(f"✅ Report table loaded with {len(rows) - 1} rows.")
+
+            # 📸 Take screenshot after table loads successfully
+            allure.attach(
+                driver.get_screenshot_as_png(),
+                name="Purchase_Book_Report_Screenshot",
+                attachment_type=allure.attachment_type.PNG
+            )
+            print("📸 Screenshot of Purchase Book Report captured and attached to Allure.")
+
         except TimeoutException:
             print("⚠️ No report data appeared after loading report.")
 
