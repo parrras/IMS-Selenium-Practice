@@ -6,7 +6,7 @@ from PYTEST.pages.Debit_Note_Book_Report import DebitNoteBookReportPage
 
 
 @allure.title("Generate Debit Note Book Report in IMS Application")
-@allure.description("Logs in, navigates to Reports → Purchase Reports → Debit Note Book Report, and generates the report.")
+@allure.description("Logs in, navigates to Reports → Purchase Reports → Debit Note Book Report, and generates the report with screenshots on success and failure.")
 def test_generate_debit_note_book_report(setup):
     driver = setup
     wait = WebDriverWait(driver, 30)
@@ -33,9 +33,24 @@ def test_generate_debit_note_book_report(setup):
         debit_report_page.generate_debit_note_book_report()
         print("📊 Debit Note Book Report generated successfully.")
 
+        # ✅ Step 3: Capture screenshot after successful report generation
+        allure.attach(
+            driver.get_screenshot_as_png(),
+            name="Debit_Note_Book_Report_Success",
+            attachment_type=allure.attachment_type.PNG
+        )
+        print("📸 Screenshot captured after successful Debit Note Book Report generation.")
+
     except Exception as e:
-        # 📸 Attach error screenshot and details to Allure
-        allure.attach(driver.get_screenshot_as_png(), name="Error Screenshot",
-                      attachment_type=allure.attachment_type.PNG)
-        allure.attach(str(e), name="Error Details", attachment_type=allure.attachment_type.TEXT)
+        # ❌ Step 4: Capture screenshot & error details on failure
+        allure.attach(
+            driver.get_screenshot_as_png(),
+            name="Debit_Note_Book_Report_Error",
+            attachment_type=allure.attachment_type.PNG
+        )
+        allure.attach(
+            str(e),
+            name="Error_Details",
+            attachment_type=allure.attachment_type.TEXT
+        )
         pytest.fail(f"❌ Debit Note Book Report test failed due to: {e}")

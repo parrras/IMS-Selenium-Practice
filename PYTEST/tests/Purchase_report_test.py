@@ -31,9 +31,26 @@ def test_generate_purchase_book_report(setup):
         # --- Step 2: Navigate and Generate Purchase Book Report ---
         report_page = PurchaseBookReportPage(driver)
         report_page.generate_purchase_book_report()
-        print("📊 Purchase Book Report generated and screenshot captured successfully.")
+        print("📊 Purchase Book Report generated successfully.")
+
+        # ✅ Take screenshot after successful report generation
+        allure.attach(
+            driver.get_screenshot_as_png(),
+            name="Purchase_Report_Success",
+            attachment_type=allure.attachment_type.PNG
+        )
+        print("📸 Screenshot captured after report generation.")
 
     except Exception as e:
-        allure.attach(driver.get_screenshot_as_png(), name="Error Screenshot", attachment_type=allure.attachment_type.PNG)
-        allure.attach(str(e), name="Error Details", attachment_type=allure.attachment_type.TEXT)
+        # ❌ Capture screenshot and error details if something fails
+        allure.attach(
+            driver.get_screenshot_as_png(),
+            name="Error_Screenshot",
+            attachment_type=allure.attachment_type.PNG
+        )
+        allure.attach(
+            str(e),
+            name="Error_Details",
+            attachment_type=allure.attachment_type.TEXT
+        )
         pytest.fail(f"❌ Purchase Book Report test failed due to: {e}")

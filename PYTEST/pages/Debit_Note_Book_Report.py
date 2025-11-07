@@ -7,7 +7,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 
-# noinspection PyBroadException
 @allure.feature("Debit Note Book Report")
 class DebitNoteBookReportPage:
 
@@ -32,16 +31,16 @@ class DebitNoteBookReportPage:
         time.sleep(2)
 
         try:
-            dbnote_reports = wait.until(
+            purchase_reports = wait.until(
                 EC.element_to_be_clickable((By.LINK_TEXT, "Purchase Reports"))
             )
         except:
-            dbnote_reports = wait.until(
+            purchase_reports = wait.until(
                 EC.visibility_of_element_located((By.XPATH, "//span[normalize-space()='Purchase Reports']"))
             )
 
-        driver.execute_script("arguments[0].scrollIntoView(true);", dbnote_reports)
-        self.actions.move_to_element(dbnote_reports).pause(0.5).perform()
+        driver.execute_script("arguments[0].scrollIntoView(true);", purchase_reports)
+        self.actions.move_to_element(purchase_reports).pause(0.5).perform()
         print("✅ Hovered over 'Purchase Reports'.")
         time.sleep(1)
 
@@ -53,7 +52,21 @@ class DebitNoteBookReportPage:
         print("✅ Clicked on 'Debit Note Book Report'.")
         time.sleep(3)
 
-        # ✅ Step 2: Click 'RUN' button
+        # ✅ Step 2: Click “Detail Report” radio button before clicking RUN
+        print("🎯 Selecting 'Detail Report' option...")
+        try:
+            detail_report_radio = wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//input[@type='radio' and @name='reportType' and @value='1']"))
+            )
+            driver.execute_script("arguments[0].scrollIntoView(true);", detail_report_radio)
+            detail_report_radio.click()
+            print("✅ Selected 'Detail Report' radio button.")
+        except Exception as e:
+            raise AssertionError(f"❌ Failed to select 'Detail Report' radio button: {e}")
+
+        time.sleep(2)
+
+        # ✅ Step 3: Click 'RUN' button
         print("▶️ Clicking 'RUN' button...")
         try:
             run_button = wait.until(
@@ -66,7 +79,7 @@ class DebitNoteBookReportPage:
             raise AssertionError(f"❌ Failed to click 'RUN' button: {e}")
         time.sleep(3)
 
-        # ✅ Step 3: Verify report table and attach screenshot
+        # ✅ Step 4: Verify report table and attach screenshot
         print("🧾 Verifying Debit Note Book Report table...")
         try:
             table = wait.until(EC.presence_of_element_located((By.XPATH, "//table[contains(@class,'table')]")))
