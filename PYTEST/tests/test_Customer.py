@@ -34,11 +34,11 @@ def test_create_customer(setup):
     # --- Step 2: Create Customer ---
     customer = Customer(driver)
     customer.create_customer(
-        name="Lil Pump",
-        address="Las Vegas USA",
-        vat_no="9099111",
-        email="pudkeyma@gmail.com",
-        mobile="9101034383"
+        name="Kendrick Lamar",
+        address="Ohio USA",
+        vat_no="9091121",
+        email="kalomanchey@gmail.com",
+        mobile="9101923383"
     )
     print("✅ Customer creation process completed")
 

@@ -10,9 +10,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 def setup():
     """Setup Chrome driver for tests (Headed Mode — browser visible)"""
     chrome_options = Options()
-
     # ✅ Normal (headed) browser mode
-    chrome_options.add_argument("--start-maximized")
+    chrome_options.add_argument("--window-size=2000,1100")
     chrome_options.add_argument("--disable-notifications")
     chrome_options.add_argument("--disable-infobars")
     chrome_options.add_argument("--disable-extensions")
