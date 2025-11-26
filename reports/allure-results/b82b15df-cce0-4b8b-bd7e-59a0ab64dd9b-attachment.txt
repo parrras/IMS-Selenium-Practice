@@ -1,0 +1,30 @@
+Message: element click intercepted: Element <input _ngcontent-xnk-c394="" id="refbill" type="text" autocomplete="off" placeholder="Please Enter To Select Ref Bill No" style="width: 64%;" readonly="" class="ng-untouched ng-pristine ng-valid ng-star-inserted"> is not clickable at point (315, 184). Other element would receive the click: <span _ngcontent-xnk-c230="">...</span>
+  (Session info: chrome=142.0.7444.176); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#elementclickinterceptedexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0xdd4103
+	0xdd4144
+	0xbde71d
+	0xc30580
+	0xc2e8e3
+	0xc2c387
+	0xc2b5fd
+	0xc1fd65
+	0xc4c90c
+	0xc1f7c4
+	0xc4cac4
+	0xc6ee17
+	0xc4c706
+	0xc1da30
+	0xc1ed54
+	0x10457b4
+	0x104098a
+	0xdfc392
+	0xdec4c8
+	0xdf324d
+	0xddc478
+	0xddc63c
+	0xdc67ca
+	0x76075d49
+	0x76ebd6db
+	0x76ebd661

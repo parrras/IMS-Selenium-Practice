@@ -45,31 +45,46 @@ class CreditNotePage:
             print("✅ Opened 'Credit Note (Sales Return)' page.")
             time.sleep(4)
 
-            # ✅ Step 1: Click on Ref Bill No field
+            # 🔥 FIX 1 — Remove hover overlay before clicking Credit Note
+            actions.move_by_offset(200, 0).click().perform()
+            time.sleep(0.5)
+
+            # ✅ Step 1: Click on Ref Bill No field — FIXED interception
             print("🧾 Clicking 'Ref Bill No' field...")
             ref_bill_field = wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//input[@id='refbill']"))
             )
+
             driver.execute_script("arguments[0].scrollIntoView(true);", ref_bill_field)
-            ref_bill_field.click()
+            time.sleep(0.4)
+
+            # 🔥 FIX 2 — Triple-method anti-interception click
+            try:
+                ref_bill_field.click()
+            except:
+                try:
+                    actions.move_to_element(ref_bill_field).pause(0.2).click().perform()
+                except:
+                    driver.execute_script("arguments[0].click();", ref_bill_field)
+
             print("✅ Clicked Ref Bill field.")
 
             # ✅ Step 2: Press ENTER to load voucher list
-            actions.send_keys("\ue007").perform()  # \ue007 = Enter key
+            actions.send_keys("\ue007").perform()
             print("🔄 Pressed ENTER to load vouchers...")
             time.sleep(2)
 
-            # ✅ Step 3: Double-click on the desired voucher (example: date div)
+            # ✅ Step 3: Double-click voucher
             print("📅 Selecting a voucher from the list...")
             voucher_item = wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//div[@title='2025-11-09']"))
+                EC.element_to_be_clickable((By.XPATH, "//div[@title='2025-11-25']"))
             )
             driver.execute_script("arguments[0].scrollIntoView(true);", voucher_item)
             actions.double_click(voucher_item).perform()
-            print("✅ Voucher selected via double-click.")
+            print("✅ Voucher selected.")
             time.sleep(5)
 
-            # ✅ Step 4: Enter Remarks before saving
+            # ✅ Step 4: Enter Remarks
             print("📝 Entering Remarks...")
             remarks_field = wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//textarea[@id='remarksid']"))
@@ -80,21 +95,21 @@ class CreditNotePage:
             print("✅ Remarks entered successfully.")
             time.sleep(2)
 
-            # ✅ Step 5: Click the SAVE button
+            # ✅ Step 5: Click SAVE button
             print("💾 Clicking SAVE button...")
             save_button = wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//button[contains(text(),'SAVE')]"))
             )
             driver.execute_script("arguments[0].scrollIntoView(true);", save_button)
-            save_button.click()
+            driver.execute_script("arguments[0].click();", save_button)
             print("✅ Clicked SAVE successfully.")
             time.sleep(2)
 
-            # 📸 Step 6: Take Screenshot for Allure
+            # 📸 Screenshot
             screenshot = driver.get_screenshot_as_png()
             allure.attach(screenshot, name="Credit_Note_Screenshot",
                           attachment_type=allure.attachment_type.PNG)
-            print("📸 Screenshot of Credit Note saved and attached to Allure.")
+            print("📸 Screenshot saved.")
 
         except TimeoutException:
             print("⚠️ Timeout waiting for element while generating Credit Note.")

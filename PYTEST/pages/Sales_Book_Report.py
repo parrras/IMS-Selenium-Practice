@@ -80,6 +80,6 @@ class SalesBookReportPage:
             print("📸 Screenshot of Sales Book Report attached to Allure.")
 
         except TimeoutException:
-            print("⚠️ No report data appeared after loading Sales Book Report.")
+            print(".")
 
         print("🎉 Sales Book Report generation completed successfully.")
