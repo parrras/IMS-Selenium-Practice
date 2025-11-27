@@ -1,0 +1,30 @@
+Message: element click intercepted: Element <button _ngcontent-dtv-c240="" class="btn btn-default btn-info btn-auth">...</button> is not clickable at point (983, 445). Other element would receive the click: <bs-modal-backdrop class="modal-backdrop fade"></bs-modal-backdrop>
+  (Session info: chrome=142.0.7444.176); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#elementclickinterceptedexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x894103
+	0x894144
+	0x69e71d
+	0x6f0580
+	0x6ee8e3
+	0x6ec387
+	0x6eb5fd
+	0x6dfd65
+	0x70c90c
+	0x6df7c4
+	0x70cac4
+	0x72ee17
+	0x70c706
+	0x6dda30
+	0x6ded54
+	0xb057b4
+	0xb0098a
+	0x8bc392
+	0x8ac4c8
+	0x8b324d
+	0x89c478
+	0x89c63c
+	0x8867ca
+	0x76075d49
+	0x76ebd6db
+	0x76ebd661

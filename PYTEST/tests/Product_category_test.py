@@ -33,8 +33,8 @@ def test_add_product_category(setup):
         add_category.navigate_to_add_product()
 
         # --- Step 3: Add Product Category ---
-        add_category.add_product_category("Hygiene")
-        print("✅ Product category 'Hygiene' added successfully.")
+        add_category.add_product_category("Sunscreen")
+        print("✅ Product category 'Sunscreen' added successfully.")
 
         # Screenshot for success proof
         allure.attach(driver.get_screenshot_as_png(), name="Add_Product_Category_Success", attachment_type=allure.attachment_type.PNG)

@@ -77,7 +77,7 @@ class CreditNotePage:
             # ✅ Step 3: Double-click voucher
             print("📅 Selecting a voucher from the list...")
             voucher_item = wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//div[@title='2025-11-25']"))
+                EC.element_to_be_clickable((By.XPATH, "//div[@title='2025-11-27']"))
             )
             driver.execute_script("arguments[0].scrollIntoView(true);", voucher_item)
             actions.double_click(voucher_item).perform()

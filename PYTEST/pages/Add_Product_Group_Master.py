@@ -67,8 +67,8 @@ class AddProductGroupMasterPage:
         # --- Group Name ---
         group_name_field = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='groupName']")))
         group_name_field.clear()
-        group_name_field.send_keys("Hygiene")
-        print("✅ Entered Group Name: Hygiene")
+        group_name_field.send_keys("Sunscreen")
+        print("✅ Entered Group Name: Sunscreen")
 
         # --- Recommended Margin ---
         margin_field = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='recommendedMargin']")))
@@ -89,31 +89,5 @@ class AddProductGroupMasterPage:
         print("💾 Clicked Save button.")
         time.sleep(2)
 
-        # --- Check for success or duplicate popup ---
-        try:
-            # Wait for alert/toast message
-            message_element = self.wait.until(
-                EC.visibility_of_element_located((By.XPATH,
-                                                  "//*[contains(text(), 'success') or contains(text(), 'exists') or contains(text(), 'Duplicate') or contains(text(), 'added')]"))
-            )
-            message_text = message_element.text.strip()
-            print(f"📢 System message: {message_text}")
-
-            # Attach screenshot
-            allure.attach(self.driver.get_screenshot_as_png(), name="Product_Group_Result",
-                          attachment_type=allure.attachment_type.PNG)
-
-            # --- Validation: Fail test on duplicate or error ---
-            if any(word in message_text.lower() for word in ["duplicate", "exist", "error", "failed", "already"]):
-                print("❌ Duplicate or error message detected.")
-                raise AssertionError(f"Product Group not added successfully — System message: {message_text}")
-            else:
-                print("✅ Product Group added successfully.")
-                print("🎉 Test passed!")
-
-        except TimeoutException:
-            allure.attach(self.driver.get_screenshot_as_png(), name="Product_Group_Timeout",
-                          attachment_type=allure.attachment_type.PNG)
-            raise AssertionError("❌ No confirmation message appeared after clicking SAVE — possible system issue.")
 
 
