@@ -1,0 +1,30 @@
+❌ Failed to select Item Group or Category due to: Message: element click intercepted: Element <select _ngcontent-xip-c539="" id="Category" style="width: 55%; height: 22px;" class="ng-untouched ng-pristine ng-valid">...</select> is not clickable at point (647, 127). Other element would receive the click: <div _ngcontent-xip-c236="" bsmodal="" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="false" class="modal fade in show" style="z-index: 99999999; height: 100%; background: rgba(17, 19, 19, 0.46); display: block;" aria-modal="true">...</div>
+  (Session info: chrome=142.0.7444.176); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#elementclickinterceptedexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x1124103
+	0x1124144
+	0xf2e71d
+	0xf80580
+	0xf7e8e3
+	0xf7c387
+	0xf7b5fd
+	0xf6fd65
+	0xf9c90c
+	0xf6f7c4
+	0xf9cac4
+	0xfbee17
+	0xf9c706
+	0xf6da30
+	0xf6ed54
+	0x13957b4
+	0x139098a
+	0x114c392
+	0x113c4c8
+	0x114324d
+	0x112c478
+	0x112c63c
+	0x11167ca
+	0x76075d49
+	0x76ebd6db
+	0x76ebd661

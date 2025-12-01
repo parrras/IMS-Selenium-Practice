@@ -84,7 +84,7 @@ class AddProductPage:
                 stock_unit = "Bottle"
                 purchase_price = random.randint(10, 500)
                 sales_price = random.randint(purchase_price + 150, purchase_price + 200)
-                barcode = f"1.{486 + i}"
+                barcode = f"1.{896 + i}"
                 supplier = "Sujata Vendor"
 
                 # ✅ Logging product details

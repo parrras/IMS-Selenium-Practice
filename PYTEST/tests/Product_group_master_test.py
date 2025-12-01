@@ -37,7 +37,7 @@ def test_add_product_group_master(setup):
 
         # --- Step 4: Fill Group Details and Save ---
         add_group.fill_group_details_and_save()
-        print("✅ Product group 'Sunscreen' added successfully.")
+        print("✅ Product group 'Body Scrub' added successfully.")
 
         # Screenshot for success proof
         allure.attach(driver.get_screenshot_as_png(), name="Add_Product_Group_Success", attachment_type=allure.attachment_type.PNG)
