@@ -34,11 +34,11 @@ def test_create_vendor(setup):
     # --- Step 2: Create Customer ---
     vendor = Vendor(driver)
     vendor.create_vendor(
-        name="Ronaldo Jr.",
-        address="Lisbon Portugal",
-        vat_no="901010011",
-        email="dajuma@gmail.com",
-        mobile="9110191683"
+        name="Limon Jamal",
+        address="Barcelona Spain",
+        vat_no="927871626",
+        email="limonjuice@gmail.com",
+        mobile="9829182023"
     )
     print("✅ Vendor creation process completed")
 

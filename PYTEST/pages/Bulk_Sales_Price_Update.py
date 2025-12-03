@@ -46,48 +46,12 @@ class BulkSalesPriceUpdatePage:
     @allure.step("Select Item Group and Category: Chocolate")
     def select_item_group(self):
         try:
-            # Step 1: Click Item Group input field and trigger dropdown
-            item_group_field = self.wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//input[@placeholder='Press Enter to Select' and @readonly]"))
-            )
-            item_group_field.click()
-            item_group_field.send_keys(Keys.ENTER)
-            print("✅ Clicked on Item Group selection field and pressed Enter.")
-            time.sleep(5)
-
-            # Step 2: Select Main Group as Chocolate
-            main_group_dropdown = self.wait.until(
-                EC.visibility_of_element_located((By.ID, "mainGroup"))
-            )
-            main_group_dropdown.click()
-            chocolate_main_option = self.wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//select[@id='mainGroup']/option[text()='Chocolate']"))
-            )
-            chocolate_main_option.click()
-            print("✅ Selected Main Group: Chocolate")
-
-            # Step 3: Click OK to confirm Main Group
-            ok_button = self.wait.until(
-                EC.presence_of_element_located(
-                    (By.XPATH, "//button[normalize-space()='Ok' and contains(@class,'btn-info')]"))
-            )
-            # Scroll into view to make sure it's clickable
-            self.driver.execute_script("arguments[0].scrollIntoView(true);", ok_button)
-            time.sleep(1)
-            try:
-                ok_button.click()  # normal click
-            except:
-                # fallback JS click if normal click fails
-                self.driver.execute_script("arguments[0].click();", ok_button)
-            print("✅ Clicked OK after selecting Main Group")
-            time.sleep(10)
-
-            # Step 4: Select Category as Chocolate
+            # Step 1: Select Category as Chocolate
             category_dropdown = self.wait.until(
                 EC.visibility_of_element_located((By.ID, "Category"))
             )
             category_dropdown.click()
-            time.sleep(3)
+            time.sleep(5)
 
             chocolate_category_option = self.wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//select[@id='Category']/option[text()='Chocolate']"))
@@ -96,7 +60,7 @@ class BulkSalesPriceUpdatePage:
             print("✅ Selected Category: Chocolate")
             time.sleep(5)
 
-            # Step 5: Attach screenshot to Allure
+            # Step 2: Attach screenshot to Allure
             allure.attach(self.driver.get_screenshot_as_png(), name="Item_Group_and_Category_Selected",
                           attachment_type=allure.attachment_type.PNG)
             print("📸 Screenshot attached: Item Group and Category selected successfully.")
@@ -115,7 +79,8 @@ class BulkSalesPriceUpdatePage:
                 "newSpriceInc0",  # Milk Chocolate
                 "newSpriceInc1",  # Milk Chocolate variant
                 "newSpriceInc2",  # Dark Chocolate
-                "newSpriceInc3"  # Prod Test / White Chocolate
+                "newSpriceInc3",  # Prod Test / White Chocolate
+                "newSpriceInc4"
             ]
 
             for field_id in price_fields:
@@ -128,6 +93,7 @@ class BulkSalesPriceUpdatePage:
                 print(f"✅ Updated {field_id} with price: {random_price}")
 
             # --- Click Save button ---
+
             save_button = self.wait.until(EC.element_to_be_clickable(
                 (By.XPATH, "//button[normalize-space()='Save' and contains(@class,'btn-info')]")
             ))

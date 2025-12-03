@@ -88,9 +88,19 @@ class OpeningStockPage:
         qty_field_1.send_keys(Keys.TAB)
         time.sleep(0.5)
 
-        # Now RATE field is active — send TAB again
+        # Now RATE field is active — TAB to MFG DATE
         rate_field = self.driver.switch_to.active_element
         rate_field.send_keys(Keys.TAB)
+        time.sleep(0.5)
+
+        # Now MFG DATE (id=mfgdate0) is active — TAB to EXP DATE
+        mfg_date_field = self.driver.switch_to.active_element
+        mfg_date_field.send_keys(Keys.TAB)
+        time.sleep(0.5)
+
+        # Now EXP DATE (id=expdate0) is active — TAB to next ITEM FIELD
+        exp_date_field = self.driver.switch_to.active_element
+        exp_date_field.send_keys(Keys.TAB)
         time.sleep(1)
 
         # STEP 4 → SELECT SECOND ITEM
