@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Min_Stock_Lvl_Report import MinStockLevelReportPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Minimum Stock Level Report in IMS Application")
 @allure.description("Logs in, navigates to Minimum Stock Level Report, selects warehouse, and runs the report.")
 def test_min_stock_level_report(setup):

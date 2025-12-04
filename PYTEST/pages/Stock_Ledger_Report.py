@@ -7,6 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
+# noinspection PyBroadException
 @allure.feature("Stock Ledger Report")
 class StockLedReportPage:
 

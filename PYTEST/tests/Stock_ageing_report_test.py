@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Stock_Ageing_Report import StockAgeingReportPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Stock Ageing Report in IMS Application")
 @allure.description("Logs in, navigates to Stock Ageing Report, selects supplier, and runs the report.")
 def test_stock_ageing_report(setup):

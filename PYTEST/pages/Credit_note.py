@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 
+# noinspection PyBroadException
 @allure.feature("Credit Note Creation")
 class CreditNotePage:
     def __init__(self, driver):
@@ -56,7 +57,7 @@ class CreditNotePage:
             )
 
             driver.execute_script("arguments[0].scrollIntoView(true);", ref_bill_field)
-            time.sleep(0.4)
+            time.sleep(3)
 
             # 🔥 FIX 2 — Triple-method anti-interception click
             try:

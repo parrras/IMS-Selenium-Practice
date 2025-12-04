@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Sales_report_item_wise_detail import SalesReportItemWiseDetailPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Sales Report Item Wise Detail in IMS Application")
 @allure.description("Logs in, navigates to Reports → Sales Reports → Sales Report Item Wise Detail, and generates the report with screenshots on success and failure.")
 def test_generate_sales_report_item_wise_detail(setup):

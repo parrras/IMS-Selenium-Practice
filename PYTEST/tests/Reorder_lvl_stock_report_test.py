@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Reorder_Lvl_Stock_Report import ReorderLevelStockReportPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Reorder Level Stock Report in IMS Application")
 @allure.description("Logs in, navigates to Reorder Level Stock Report, selects warehouse, and runs the report.")
 def test_reorder_level_stock_report(setup):

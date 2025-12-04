@@ -1,5 +1,4 @@
 # tests/test_Vendor.py
-import pytest
 import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -34,11 +33,11 @@ def test_create_vendor(setup):
     # --- Step 2: Create Customer ---
     vendor = Vendor(driver)
     vendor.create_vendor(
-        name="Limon Jamal",
-        address="Barcelona Spain",
-        vat_no="927871626",
-        email="limonjuice@gmail.com",
-        mobile="9829182023"
+        name="Darren Watkins",
+        address="Bali Indonesia",
+        vat_no="900112226",
+        email="ishowspeed@gmail.com",
+        mobile="9899124353"
     )
     print("✅ Vendor creation process completed")
 

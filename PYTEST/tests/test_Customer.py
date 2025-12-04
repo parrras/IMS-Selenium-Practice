@@ -1,5 +1,4 @@
 # tests/test_Customer.py
-import pytest
 import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -34,11 +33,11 @@ def test_create_customer(setup):
     # --- Step 2: Create Customer ---
     customer = Customer(driver)
     customer.create_customer(
-        name="Jamsey Boy",
-        address="Pokhara Nepal",
-        vat_no="910192812",
-        email="rajdhani@gmail.com",
-        mobile="9828610566"
+        name="Candy Juice",
+        address="Dharan Nepal",
+        vat_no="922001112",
+        email="dharanehoma@gmail.com",
+        mobile="9829112291"
     )
     print("✅ Customer creation process completed")
 

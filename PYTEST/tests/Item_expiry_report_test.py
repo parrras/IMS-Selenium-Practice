@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Item_Expiry_Report import ItemExpiryReportPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Item Expiry Report in IMS Application")
 @allure.description("Logs in, navigates to Item Expiry Report, enters number of days, and runs the report.")
 def test_item_expiry_report(setup):

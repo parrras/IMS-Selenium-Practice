@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Bulk_Sales_Price_Update import BulkSalesPriceUpdatePage
 
 
+# noinspection PyBroadException
 @allure.title("Bulk Sales Price Update in IMS Application")
 @allure.description("Logs in, navigates to Bulk Sales Price Update page, selects Item Group and Category as Chocolate, and updates prices for 4 items randomly.")
 def test_bulk_sales_price_test(setup):

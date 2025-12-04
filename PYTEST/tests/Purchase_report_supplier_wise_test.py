@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Purchase_report_supplier_wise import PurchaseReportSupplierWisePage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Purchase Report Supplier Wise in IMS Application")
 @allure.description("Logs in, navigates to Reports → Purchase Reports → Purchase Report Supplier Wise, and generates the report with screenshots on success and failure.")
 def test_generate_purchase_report_supplier_wise(setup):

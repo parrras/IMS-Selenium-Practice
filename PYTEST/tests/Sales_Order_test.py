@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Sales_Order import SalesOrderPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Sales Order in IMS Application")
 @allure.description(
     "Logs in, navigates to Transactions → Sales Transaction → Sales Order, "

@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Add_Product_Category import AddProductCategoryPage
 
 
+# noinspection PyBroadException
 @allure.title("Add Product Category in IMS Application")
 @allure.description("Logs in, navigates to Product Category page, and adds a new category named 'Hygiene'.")
 def test_add_product_category(setup):
@@ -33,8 +34,8 @@ def test_add_product_category(setup):
         add_category.navigate_to_add_product()
 
         # --- Step 3: Add Product Category ---
-        add_category.add_product_category("ToothPaste")
-        print("✅ Product category 'ToothPaste' added successfully.")
+        add_category.add_product_category("Liquor")
+        print("✅ Product category 'Liquor' added successfully.")
 
         # Screenshot for success proof
         allure.attach(driver.get_screenshot_as_png(), name="Add_Product_Category_Success", attachment_type=allure.attachment_type.PNG)

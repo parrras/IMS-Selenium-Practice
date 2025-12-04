@@ -1,11 +1,9 @@
 # test_login.py
-import pytest
 import allure
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from PYTEST.pages.Login_Page import Login  # the Page Object class
-from selenium import webdriver
 
 @allure.title("Login to IMS Application")
 @allure.description("This test logs into the IMS application using valid credentials and verifies the dashboard.")

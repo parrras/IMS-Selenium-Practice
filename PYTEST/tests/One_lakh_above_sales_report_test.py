@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.One_Lakh_Above_Sales_Report import OneLakhAboveSalesReportPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate One Lakh Above Sales Report in IMS Application")
 @allure.description("Logs in, navigates to One Lakh Above Sales Report, clicks RUN, and verifies the table.")
 def test_one_lakh_above_sales_report(setup):

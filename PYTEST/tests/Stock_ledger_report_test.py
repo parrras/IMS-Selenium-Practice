@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Stock_Ledger_Report import StockLedReportPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Stock Ledger Report in IMS Application")
 @allure.description("Logs in, navigates to Stock Ledger Report, selects warehouse and item, and runs the report.")
 def test_stock_ledger_report(setup):

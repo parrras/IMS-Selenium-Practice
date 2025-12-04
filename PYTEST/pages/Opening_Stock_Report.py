@@ -8,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 
+# noinspection PyBroadException
 @allure.feature("Opening Stock Report")
 class OpeningStockReportPage:
 

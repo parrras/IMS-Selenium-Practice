@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Credit_Note_Book_Report import CreditNoteBookReportPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Credit Note Book Report in IMS Application")
 @allure.description("Logs in, navigates to Reports → Sales Reports → Credit Note Book Report, selects customer, and generates the report with screenshots on success and failure.")
 def test_generate_credit_note_book_report(setup):

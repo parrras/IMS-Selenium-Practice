@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 
+# noinspection PyBroadException
 @allure.feature("Reorder Level Stock Report")
 class ReorderLevelStockReportPage:
 

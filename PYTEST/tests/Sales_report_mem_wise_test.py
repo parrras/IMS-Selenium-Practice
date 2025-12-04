@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Sales_Report_Membership_wise import SalesReportMembershipWisePage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Sales Report (Membership Wise) in IMS Application")
 @allure.description(
     "Logs in, navigates to Reports → Loyalty & Promotion Report → Sales Report - Membership Wise, "

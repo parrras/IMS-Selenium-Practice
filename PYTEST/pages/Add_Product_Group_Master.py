@@ -67,8 +67,8 @@ class AddProductGroupMasterPage:
         # --- Group Name ---
         group_name_field = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='groupName']")))
         group_name_field.clear()
-        group_name_field.send_keys("ToothPaste")
-        print("✅ Entered Group Name: ToothPaste")
+        group_name_field.send_keys("Hair Mousse")
+        print("✅ Entered Group Name: Hair Mousse")
 
         # --- Recommended Margin ---
         margin_field = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='recommendedMargin']")))

@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Vat_Purchase_Return_Register import VatPurchaseReturnRegisterReportPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate VAT Purchase Return Register Report in IMS Application")
 @allure.description("Logs in, navigates to VAT Purchase Return Register Report, selects supplier, checks checkbox, and runs the report.")
 def test_vat_purchase_return_register_report(setup):

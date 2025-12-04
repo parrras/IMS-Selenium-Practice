@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Purchase_Report import PurchaseBookReportPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Purchase Book Report in IMS Application")
 @allure.description("Logs in, navigates to Reports → Purchase Reports → Purchase Book Report, selects filters, and generates the report with screenshot evidence.")
 def test_generate_purchase_book_report(setup):

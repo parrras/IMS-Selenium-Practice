@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Annexure_13 import Annexure13ReportPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Annexure 13 Report in IMS Application")
 @allure.description("Logs in, navigates to Annexure 13 Report, clicks RUN, and verifies the report table.")
 def test_annexure_13_report(setup):

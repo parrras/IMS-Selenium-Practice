@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Materialized_View import MaterializedViewReportPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Materialized View Report in IMS Application")
 @allure.description("Logs in, navigates to Materialized View Report, clicks RUN, and verifies the table.")
 def test_materialized_view_report(setup):

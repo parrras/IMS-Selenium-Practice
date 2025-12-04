@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 
+# noinspection PyBroadException
 @allure.feature("Annexure 13 Report")
 class Annexure13ReportPage:
 

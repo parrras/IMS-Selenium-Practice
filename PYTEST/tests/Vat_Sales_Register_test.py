@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Vat_Sales_Register import VatSalesRegisterReportPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate VAT Sales Register Report in IMS Application")
 @allure.description("Logs in, navigates to VAT Sales Register Report, selects customer, and runs the report.")
 def test_vat_sales_register_report(setup):

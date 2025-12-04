@@ -6,6 +6,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
+
+# noinspection PyBroadException
 @allure.feature("Debit Note Creation")
 class DebitNotePage:
     def __init__(self, driver):

@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Stock_Valuation_Report import StockValuationReportPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Stock Valuation Report in IMS Application")
 @allure.description("Logs in, navigates to Stock Valuation Report, selects item, and runs the report.")
 def test_stock_valuation_report(setup):

@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Add_Product_Group_Master import AddProductGroupMasterPage
 
 
+# noinspection PyBroadException
 @allure.title("Add Product Group in IMS Application")
 @allure.description("Logs in, navigates to Product Group Master page, selects parent group, and adds a new product group named 'Hygiene'.")
 def test_add_product_group_master(setup):
@@ -37,7 +38,7 @@ def test_add_product_group_master(setup):
 
         # --- Step 4: Fill Group Details and Save ---
         add_group.fill_group_details_and_save()
-        print("✅ Product group 'ToothPaste' added successfully.")
+        print("✅ Product group 'Hair Mousse' added successfully.")
 
         # Screenshot for success proof
         allure.attach(driver.get_screenshot_as_png(), name="Add_Product_Group_Success", attachment_type=allure.attachment_type.PNG)

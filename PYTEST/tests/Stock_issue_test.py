@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Stock_Issue import StockIssuePage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Stock Issue Entry in IMS Application")
 @allure.description("Logs in, navigates to Stock Issue page, selects warehouses, adds item and quantity, and saves the entry.")
 def test_stock_issue_entry(setup):

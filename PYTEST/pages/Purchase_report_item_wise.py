@@ -7,6 +7,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
+
+# noinspection PyBroadException
 @allure.feature("Purchase Report - Item Wise")
 class PurchaseReportItemWisePage:
 

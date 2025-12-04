@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Max_Stock_Lvl_report import MaxStockLevelReportPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Maximum Stock Level Report in IMS Application")
 @allure.description("Logs in, navigates to Maximum Stock Level Report, selects supplier and warehouse, and runs the report.")
 def test_max_stock_level_report(setup):

@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Sales_report_customer_wise import SalesReportCustomerWisePage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Sales Report Customer Wise in IMS Application")
 @allure.description("Logs in, navigates to Reports → Sales Reports → Sales Report Customer Wise, selects customer & item, and generates the report with screenshots on success and failure.")
 def test_generate_sales_report_customer_wise(setup):

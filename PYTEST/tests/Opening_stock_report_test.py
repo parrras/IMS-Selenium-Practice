@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Opening_Stock_Report import OpeningStockReportPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Opening Stock Report in IMS Application")
 @allure.description("Logs in, navigates to Opening Stock Report, selects warehouse and supplier, and runs the report.")
 def test_opening_stock_report(setup):

@@ -5,6 +5,7 @@ from PYTEST.pages.Login_Page import Login
 from PYTEST.pages.Stock_Movement_Analysis_Report import StockMovementAnalysisReportPage
 
 
+# noinspection PyBroadException
 @allure.title("Generate Stock Movement Analysis Report in IMS Application")
 @allure.description("Logs in, navigates to Stock Movement Analysis Report, selects supplier, and runs the report.")
 def test_stock_movement_analysis_report(setup):

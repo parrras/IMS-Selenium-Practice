@@ -40,7 +40,7 @@ class AddProductCategoryPage:
 
     # --- Add Product Category ---
     @allure.step("Add new product category")
-    def add_product_category(self, category_name="ToothPaste"):
+    def add_product_category(self, category_name="Liquor"):
         try:
             # Click "Add Category" button
             add_category_btn = self.wait.until(EC.element_to_be_clickable(
